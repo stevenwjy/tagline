@@ -1,4 +1,7 @@
 = TagLine - User Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -174,26 +177,6 @@ Examples:
 
   Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
-=== Manages your notes: `note`
-
-==== Creates a note: `create`
-
-Creates a new note.
-
-Format:
-
-`note create --c CONTENT`
-
-Example:
-
-* `note create --c Today I don’t feel like doing anything`
-  Adds a note with content “Today I don’t feel like doing anything”.
-+
-Executing this command will trigger a confirmation in the chatbot:
- `Are you sure that you want to clear all data in your contact list? (Y/N)`
-+
-Then, if you answer "Y", the chatbot will clear all data in your contact list.
-
 === Manage groups: `group`
 
 ==== Create a contact group: `create`
@@ -226,7 +209,7 @@ Example:
 +
 Adds contacts with ID '_12345_', '_23451_', '_34512_', '_45123_', and '_51234_' to the group with name '_CS2103-F12-3_' as group members.
 
-==== Remove member from a group: remove
+==== Remove member from a group: `remove`
 Removes member from a group.
 
 Format:
@@ -263,9 +246,9 @@ Example:
 +
 Deletes a group with name '_CS2103-F12-3_'.
 
-=== Manage notes: `note`
+=== Manages your notes: `note`
 
-==== Create a note: `create`
+==== Creates a note: `create`
 
 Creates a new note.
 
@@ -276,8 +259,12 @@ Format:
 Example:
 
 * `note create --c Today I don’t feel like doing anything`
-+
 Adds a note with content “Today I don’t feel like doing anything”.
++
+Executing this command will trigger a confirmation in the chatbot:
+ `Are you sure that you want to clear all data in your contact list? (Y/N)`
++
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
 NOTE: Upload of image will be supported in v2.0
 
@@ -312,7 +299,7 @@ Replaces the content of the note which id is '_00002_' with “_Today I don’t 
 NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
 
-==== Tag a note: tag
+==== Tag a note: `tag`
 
 Tags a note with one or more tags.
 
@@ -326,7 +313,7 @@ Example:
 +
 Tags note with id '_00002_' with tag '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_'.
 
-==== Untag a note: untag
+==== Untag a note: `untag`
 
 Untags a note from one or more tags.
 
@@ -340,7 +327,7 @@ Example:
 +
 Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
 
-==== Filter notes: list
+==== Filter notes: `list`
 
 Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
 
