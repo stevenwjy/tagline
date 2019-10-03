@@ -15,6 +15,7 @@ import tagline.logic.commands.ExitCommand;
 import tagline.logic.commands.FindCommand;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.ListCommand;
+import tagline.logic.commands.RemarkCommand;
 import tagline.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,6 +59,9 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case RemarkCommand.COMMAND_WORD:
+            return new RemarkCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

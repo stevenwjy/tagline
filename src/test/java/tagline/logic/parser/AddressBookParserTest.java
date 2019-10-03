@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tagline.logic.parser.CliSyntax.PREFIX_REMARK;
 import static tagline.testutil.Assert.assertThrows;
 import static tagline.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -22,9 +23,11 @@ import tagline.logic.commands.ExitCommand;
 import tagline.logic.commands.FindCommand;
 import tagline.logic.commands.HelpCommand;
 import tagline.logic.commands.ListCommand;
+import tagline.logic.commands.RemarkCommand;
 import tagline.logic.parser.exceptions.ParseException;
 import tagline.model.person.NameContainsKeywordsPredicate;
 import tagline.model.person.Person;
+import tagline.model.person.Remark;
 import tagline.testutil.EditPersonDescriptorBuilder;
 import tagline.testutil.PersonBuilder;
 import tagline.testutil.PersonUtil;
@@ -86,6 +89,14 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_remark() throws Exception {
+        final Remark remark = new Remark("Some remark.");
+        RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_REMARK + remark.value);
+        assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, remark), command);
     }
 
     @Test

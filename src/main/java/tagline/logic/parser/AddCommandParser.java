@@ -17,6 +17,7 @@ import tagline.model.person.Email;
 import tagline.model.person.Name;
 import tagline.model.person.Person;
 import tagline.model.person.Phone;
+import tagline.model.person.Remark;
 import tagline.model.tag.Tag;
 
 /**
@@ -42,9 +43,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Remark remark = new Remark(""); // add command does not allow adding remarks straight away
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Person person = new Person(name, phone, email, address, remark, tagList);
 
         return new AddCommand(person);
     }
