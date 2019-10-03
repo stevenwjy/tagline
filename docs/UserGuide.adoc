@@ -18,44 +18,43 @@ By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-TagLine is for those who *prefer to use a desktop app for managing notes*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Tagline is for those who prefer to use a desktop app for managing notes.
+More importantly, Tagline is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Tagline can
+streamline your note management much faster than traditional GUI apps. Interested? Jump to the Quick Start
+to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure that you have Java 11 or above installed.
+.  Download the latest Tagline.jar here.
+.  Move the file to the folder you want to use as the home folder for Tagline. You are recommended to create a new folder for Tagline as it will create files to store your data.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  The panel on the left is the Chatbot Interface. Type a command in the message box and press Enter to execute it.
+.  Some commands you can try:
+    - `contact list`: Lists all contacts
+    - `note list`: Lists all notes
+.  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
+.  Refer to <<Command List>> for details of each command.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
-
-[[Features]]
-== Features
+== Command List
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact create NAME`, `NAME` is a parameter which can be used as `contact create John Doe`.
+* Items in square brackets are optional e.g `[--n NAME]` and `[--e EMAIL]` can be used as `--n John Doe --e j.doe@gmail.com` or only `--n John Doe`.
+* Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t friend`, `--t friend --t family`, etc.
+* Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t friend` and `--t friend --t family` but cannot be used as `<empty>` (i.e. 0 times),
+* Parameters can be in any order e.g. `--n NAME --p PHONE_NUMBER` and `--p PHONE_NUMBER --n NAME` are considered the same.
 ====
 
+=== Basic Commands
 
-== Basic Commands
-
-=== Views help: `help`
+==== Views help: `help`
 
 Shows the list of commands and their usages.
 
@@ -63,7 +62,7 @@ Format:
 
 `help`
 
-=== Exits the app: `bye`
+==== Exits the app: `bye`
 
 Exits the application.
 
@@ -71,9 +70,9 @@ Format:
 `bye`
 
 
-== Manages your contacts: `contact`
+=== Manages your contacts: `contact`
 
-=== Creates a contact: `create`
+==== Creates a contact: `create`
 
 Creates a contact.
 
@@ -89,7 +88,7 @@ Examples:
 * `contact create John --p 81234567 --a 21 Kent Ridge Rd`
 * `contact create Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-=== Lists all contacts: `list`
+==== Lists all contacts: `list`
 
 Lists all contacts in application.
 
@@ -97,7 +96,7 @@ Format:
 
 `list`
 
-=== Displays the profile of a person: `show` `[coming in v2.0]`
+==== Displays the profile of a person: `show` `[coming in v2.0]`
 
 Lists all contacts in application.
 
@@ -109,7 +108,7 @@ Examples:
 
 * `contact show 00343`
 
-=== Edits a person: `edit`
+==== Edits a person: `edit`
 
 Edits contact information.
 
@@ -123,7 +122,7 @@ Examples:
 
 Disclaimer: partial edit will be supported in v2.0
 
-=== Deletes a person: `delete`
+==== Deletes a person: `delete`
 
 Deletes a contact with the following id.
 
@@ -136,7 +135,7 @@ Examples:
 * `contact delete 00343`
 
 
-=== Locates persons by keyword: `find`
+==== Locates persons by keyword: `find`
 
 Lists all contacts whose name matches the given keyword.
 
@@ -148,7 +147,7 @@ Examples:
 
 * `contact find wai fong`
 
-=== Pins a person: `pin` `[coming in v2.0]`
+==== Pins a person: `pin` `[coming in v2.0]`
 
 Pins a contact to the top of the contact list.
 
@@ -160,7 +159,7 @@ Examples:
 
 * `contact pin 00343`
 
-=== Clears all entries : `clear`
+==== Clears all entries : `clear`
 
 Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
@@ -177,9 +176,9 @@ Examples:
 
   Then, if you answer "Y", the chatbot will clear all data in your contact list.
 
-== Manages your notes: `note`
+=== Manages your notes: `note`
 
-=== Creates a note: `create`
+==== Creates a note: `create`
 
 Creates a new note.
 
@@ -194,7 +193,7 @@ Example:
 
 Disclaimer: Upload of image will be supported in v2.0
 
-=== Deletes a note: `delete`
+==== Deletes a note: `delete`
 
 Deletes a note.
 
@@ -207,7 +206,7 @@ Example:
 * `note delete 00002`
   Deletes note with id 00002.
 
-=== Edits a note: `edit`
+==== Edits a note: `edit`
 
 Edits a saved note.
 
@@ -223,7 +222,7 @@ Example:
 Disclaimer: Upload of image will be supported in v2.0
 Disclaimer: Partial editing will be supported in v2.0
 
-=== Tags a note: tag
+==== Tags a note: `tag`
 
 Tags a note with one or more tags.
 
@@ -236,7 +235,7 @@ Example:
 * `note tag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
   Tags note with id 00002 with tag #CS2103T, #Duke and user with id @12300 and group %cs2103T
 
-=== Untags a note: untag
+==== Untags a note: `untag`
 
 Untags a note from one or more tags.
 
@@ -249,7 +248,7 @@ Example:
 * `note untag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
   Untags note id 00002 with tag #CS2103T, #Duke and user with id @12300 and group %cs2103T
 
-=== Filters notes: list
+==== Filters notes: `list`
 
 Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
 
@@ -288,4 +287,31 @@ Example:
 
 Disclaimer: Filtering by multi tag will be supported in v2.0
 
-=== Sorts notes: sort (Coming in v2.0)
+==== Sorts notes: sort (Coming in v2.0)
+
+=== Manages your tags: `tag`
+
+==== Filter tags: `list`
+
+Lists all tags that are currently associated with your notes. You can also choose to filter them by name or type.
+
+Format:
+
+`tag list [FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`tag list`
+|`tag list`
+|Lists all hashtags.
+
+|`tag list FILTER`
+|`tag list cs`
+|Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
+|===
