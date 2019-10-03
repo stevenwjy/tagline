@@ -24,10 +24,6 @@ while still having the benefits of a Graphical User Interface (GUI). If you can 
 streamline your note management much faster than traditional GUI apps. Interested? Jump to the Quick Start
 to get started. Enjoy!
 
-=======
-
-TagLine is for those who *prefer to use a desktop app for managing notes*. More importantly, TagLine is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Tagline can streamline your note management much faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
-
 == Quick Start
 
 .  Ensure that you have Java 11 or above installed.
