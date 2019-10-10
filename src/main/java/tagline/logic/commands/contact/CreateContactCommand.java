@@ -14,9 +14,9 @@ import tagline.model.person.Person;
 /**
  * Adds a person to the address book.
  */
-public class AddContactCommand extends ContactCommand {
+public class CreateContactCommand extends ContactCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "create";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -36,9 +36,9 @@ public class AddContactCommand extends ContactCommand {
     private final Person toAdd;
 
     /**
-     * Creates an AddContactCommand to add the specified {@code Person}
+     * Creates an CreateContactCommand to add the specified {@code Person}
      */
-    public AddContactCommand(Person person) {
+    public CreateContactCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
     }
@@ -58,7 +58,7 @@ public class AddContactCommand extends ContactCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddContactCommand // instanceof handles nulls
-                && toAdd.equals(((AddContactCommand) other).toAdd));
+                || (other instanceof CreateContactCommand // instanceof handles nulls
+                && toAdd.equals(((CreateContactCommand) other).toAdd));
     }
 }
