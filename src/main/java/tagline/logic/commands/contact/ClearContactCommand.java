@@ -12,8 +12,7 @@ import tagline.model.Model;
 public class ClearContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
-
+    public static final String MESSAGE_SUCCESS = "Contacts have been cleared!";
 
     @Override
     public CommandResult execute(Model model) {
