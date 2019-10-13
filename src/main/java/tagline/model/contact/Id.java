@@ -23,8 +23,12 @@ public class Id {
     /**
      * Increase the number of digit in Id.
      */
-    void incrementDigit() {
+    static void incrementDigit() {
         digit++;
+    }
+
+    static int getDigit() {
+        return digit;
     }
 
     public Integer toInteger() {
