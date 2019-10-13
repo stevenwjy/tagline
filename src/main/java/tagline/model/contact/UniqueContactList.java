@@ -39,6 +39,12 @@ public class UniqueContactList implements Iterable<Contact> {
         return internalList.stream().anyMatch(toCheck::isSameContact);
     }
 
+    /**
+     * Find a contact by id.
+     *
+     * @param id of the contact
+     * @return an optional object which implies whether the corresponding contact is found or not.
+     */
     public Optional<Contact> findContact(int id) {
         var it = iterator();
         while (it.hasNext()) {
