@@ -6,9 +6,10 @@ import tagline.model.contact.exceptions.InvalidIdException;
  * Represent a Contact unique Id.
  */
 public class Id {
-    private static int digit = 5;
 
-    public static String MESSAGE_CONSTRAINTS = "Id should be a positive integer up to 5 digit.";
+    public static final String MESSAGE_CONSTRAINTS = "id should be a positive integer up to 5 digit";
+
+    private static int digit = 5;
 
     private final int id;
 
