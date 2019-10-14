@@ -8,7 +8,18 @@ import tagline.model.contact.exceptions.InvalidIdException;
 public class Id {
     private static int digit = 5;
 
+    public static String MESSAGE_CONSTRAINTS = "Id should be a positive integer up to 5 digit.";
+
     private final int id;
+
+    /**
+     * Construct an Id from String.
+     * Warning: This constructor should only be used by storage.
+     * @param id
+     */
+    public Id(String id) {
+        this.id = Integer.valueOf(id);
+    }
 
     /**
      * Construct Id from integer.
@@ -18,6 +29,24 @@ public class Id {
             throw new InvalidIdException("Id too large");
         }
         this.id = id;
+    }
+
+    /**
+     * Returns true if id is valid.
+     */
+    public static boolean isValidId(String id) {
+        int value;
+
+        try {
+            value = Integer.valueOf(id);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+
+        if (0 <= value && value < (int) Math.pow(10, digit)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -60,5 +89,10 @@ public class Id {
         }
 
         return id == other;
+    }
+
+    @Override
+    public int hashCode() {
+        return ((Integer) id).hashCode();
     }
 }
