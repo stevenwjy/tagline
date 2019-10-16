@@ -12,7 +12,7 @@
         <ColumnConstraints hgrow="NEVER" minWidth="60.0"/>
     </columnConstraints>
     <children>
-        <TextField fx:id="commandTextField" styleClass="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."
+        <TextField fx:contactId="commandTextField" styleClass="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."
                    GridPane.columnIndex="0"/>
         <Button onAction="#handleCommandEntered" styleClass="commandSendButton" text="Send" GridPane.columnIndex="2"/>
     </children>

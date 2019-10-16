@@ -65,9 +65,9 @@ public class ContactManager implements ContactModel {
     }
 
     /**
-     * Generate a random unique Id.
+     * Generate a random unique ContactId.
      *
-     * @return a random unique Id.
+     * @return a random unique ContactId.
      */
     private ContactId generateUniqueId() {
         // If the number of contacts has started to fill up the current digit.
