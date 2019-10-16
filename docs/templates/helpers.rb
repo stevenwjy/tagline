@@ -124,14 +124,14 @@ module Slim::Helpers
 
   ##
   # @param index [Integer] the footnote's index.
-  # @return [String] footnote contactId to be used in a link.
+  # @return [String] footnote id to be used in a link.
   def footnote_id(index = (attr :index))
     %(_footnote_#{index})
   end
 
   ##
   # @param index (see #footnote_id)
-  # @return [String] footnoteref contactId to be used in a link.
+  # @return [String] footnoteref id to be used in a link.
   def footnoteref_id(index = (attr :index))
     %(_footnoteref_#{index})
   end

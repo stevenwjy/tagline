@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 import tagline.model.contact.Address;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
+import tagline.model.contact.ContactId;
 import tagline.model.contact.Description;
 import tagline.model.contact.Email;
 import tagline.model.contact.Name;
 import tagline.model.contact.Phone;
 import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.Tag;
 
 /**
@@ -49,7 +51,7 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(s -> new ContactTag(new ContactId(s)))
                 .collect(Collectors.toSet());
     }
 

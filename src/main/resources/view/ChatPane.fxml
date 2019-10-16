@@ -15,14 +15,14 @@
     </rowConstraints>
     <children>
         <StackPane VBox.vgrow="ALWAYS" styleClass="stack-pane" GridPane.rowIndex="0">
-            <ScrollPane fx:contactId="dialogScrollPane" hbarPolicy="NEVER" fitToWidth="true">
+            <ScrollPane fx:id="dialogScrollPane" hbarPolicy="NEVER" fitToWidth="true">
                 <content>
-                    <VBox fx:contactId="dialogContainer" />
+                    <VBox fx:id="dialogContainer" />
                 </content>
             </ScrollPane>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:contactId="commandBoxPlaceholder" styleClass="stack-pane"
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="stack-pane"
                    GridPane.rowIndex="1">
             <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />

@@ -65,31 +65,6 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
-     * Find a contact by id.
-     *
-     * @param id of the contact
-     * @return an optional object which implies whether the corresponding contact is found or not.
-     */
-    public Optional<Contact> findContact(int id) {
-        var it = iterator();
-        while (it.hasNext()) {
-            Contact currentContact = it.next();
-            if (currentContact.getContactId().equals(id)) {
-                return Optional.of(currentContact);
-            }
-        }
-        return Optional.empty();
-    }
-
-    public Optional<Contact> findContact(ContactId contactId) {
-        return findContact(contactId.toInteger());
-    }
-
-    public int size() {
-        return internalList.size();
-    }
-
-    /**
      * Adds a contact to the list.
      * The contact must not already exist in the list.
      */

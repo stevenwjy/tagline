@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1" fx:contactId="contactResultView">
+      xmlns:fx="http://javafx.com/fxml/1" fx:id="contactResultView">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
     </padding>
-    <StackPane fx:contactId="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+    <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" />
 </VBox>

@@ -24,23 +24,23 @@
             </stylesheets>
 
             <VBox>
-                <MenuBar fx:contactId="menuBar" VBox.vgrow="NEVER">
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
                     </Menu>
                     <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:contactId="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
                 </MenuBar>
 
                 <HBox minHeight="200" VBox.vgrow="ALWAYS">
-                    <StackPane fx:contactId="chatPanePlaceholder" styleClass="pane-with-border" minWidth="350" prefWidth="350"
+                    <StackPane fx:id="chatPanePlaceholder" styleClass="pane-with-border" minWidth="350" prefWidth="350"
                                HBox.hgrow="NEVER"/>
-                    <StackPane fx:contactId="resultPanePlaceholder" styleClass="pane-with-border" minWidth="350"
+                    <StackPane fx:id="resultPanePlaceholder" styleClass="pane-with-border" minWidth="350"
                                prefWidth="350" HBox.hgrow="ALWAYS"/>
                 </HBox>
 
-                <StackPane fx:contactId="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
         </Scene>
     </scene>

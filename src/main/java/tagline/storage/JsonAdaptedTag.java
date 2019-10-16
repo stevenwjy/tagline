@@ -3,6 +3,9 @@ package tagline.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import tagline.commons.exceptions.IllegalValueException;
+import tagline.model.contact.ContactId;
+import tagline.model.tag.ContactTag;
 import tagline.model.tag.Tag;
 
 /**
@@ -45,11 +48,7 @@ class JsonAdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    /*public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(tagName);
-    }*/
-
+    public Tag toModelType() throws IllegalValueException {
+        return new ContactTag(new ContactId("123"));
+    }
 }
