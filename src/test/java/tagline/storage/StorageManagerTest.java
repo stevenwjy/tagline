@@ -2,7 +2,7 @@ package tagline.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static tagline.testutil.TypicalPersons.getTypicalAddressBook;
+import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import tagline.commons.core.GuiSettings;
-import tagline.model.AddressBook;
-import tagline.model.ReadOnlyAddressBook;
 import tagline.model.UserPrefs;
+import tagline.model.contact.AddressBook;
+import tagline.model.contact.ReadOnlyAddressBook;
 
 public class StorageManagerTest {
 

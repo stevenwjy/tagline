@@ -4,14 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
-import tagline.model.person.Person;
+import tagline.model.contact.AddressBook;
+import tagline.model.contact.Contact;
+import tagline.model.contact.ContactManager;
+import tagline.model.contact.ReadOnlyAddressBook;
+import tagline.model.note.Note;
+import tagline.model.note.NoteModel;
+import tagline.model.note.NoteModelManager;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,9 +25,9 @@ import tagline.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ContactManager contactManager;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final NoteModel noteModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -32,9 +38,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.contactManager = new ContactManager(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        noteModel = new NoteModelManager();
     }
 
     public ModelManager() {
@@ -80,53 +86,66 @@ public class ModelManager implements Model {
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+        contactManager.setAddressBook(addressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return contactManager.getAddressBook();
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasContact(Contact contact) {
+        return contactManager.hasContact(contact);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteContact(Contact target) {
+        contactManager.deleteContact(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addContact(Contact contact) {
+        contactManager.addContact(contact);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public void setContact(Contact target, Contact editedContact) {
+        contactManager.setContact(target, editedContact);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public Optional<Contact> findContact(int id) {
+        return contactManager.findContact(id);
+    }
+
+    //=========== NoteBook ================================================================================
+
+    @Override
+    public boolean hasNote(Note note) {
+        requireNonNull(note);
+        return noteModel.hasNote(note);
+    }
+
+    @Override
+    public void addNote(Note note) {
+        noteModel.addNote(note);
+    }
+
+    //=========== Filtered Contact List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Contact> getFilteredContactList() {
+        return contactManager.getFilteredContactList();
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void updateFilteredContactList(Predicate<Contact> predicate) {
+        contactManager.updateFilteredContactList(predicate);
     }
 
     @Override
@@ -143,9 +162,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+        return contactManager.equals(other.contactManager)
+                && userPrefs.equals(other.userPrefs);
     }
 
 }
