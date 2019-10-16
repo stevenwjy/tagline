@@ -25,20 +25,12 @@ public class TagManager implements TagModel {
         return this.tagList;
     }
 
-    public boolean containsTag(String tagName) {
-        return tagList.containsTag(tagName);
-    }
-
     public boolean containsTag(Tag tag) {
         return tagList.containsTag(tag);
     }
 
     public void addTag(Tag tag) {
         tagList.addTag(tag);
-    }
-
-    public List<Tag> findTag(String tagName) {
-        return tagList.findTag(tagName);
     }
 
     public List<Tag> findTag(int tagId) {

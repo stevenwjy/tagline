@@ -19,11 +19,6 @@ public interface TagModel {
     ReadOnlyTagList getTagList();
 
     /**
-     * Returns true if a tag with name {@code tagName} exists in the tag list.
-     */
-    boolean containsTag(String tag);
-
-    /**
      * Returns true if {@code tag} exists in the tag list.
      */
     boolean containsTag(Tag tag);
@@ -33,11 +28,6 @@ public interface TagModel {
      * {@code tag} must not already exist in the tag list.
      */
     void addTag(Tag tag);
-
-    /**
-     * Returns a list containing the tag(s) matching {@code tagName}, or an empty list if none were found.
-     */
-    List<Tag> findTag(String tagName);
 
     /**
      * Returns a list containing the tag matching {@code id}, or an empty list if none were found.

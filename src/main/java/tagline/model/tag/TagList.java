@@ -32,6 +32,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
 
     /**
      * Replaces the contents of the tag list with {@code replacement}.
+     *
      * @throws DuplicateTagException If {@code replacement} contains duplicate tags
      */
     public void setTagList(ReadOnlyTagList replacement) {
@@ -41,6 +42,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
 
     /**
      * Replaces the contents of the tag list with {@code tags}.
+     *
      * @throws DuplicateTagException If {@code tags} contains duplicate tags
      */
     public void setTagList(List<Tag> tags) {
@@ -51,17 +53,6 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
 
         tagList = new ArrayList<>();
         tagList.addAll(tags);
-    }
-
-    /**
-     * Returns true if the tag list contains a {@code Tag} with some name.
-     *
-     * @param tagName The tag name to find
-     * @return True if a matching tag was found
-     */
-    public boolean containsTag(String tagName) {
-        requireNonNull(tagName);
-        return tagList.stream().anyMatch(t -> t.tagName.equals(tagName));
     }
 
     /**
@@ -95,11 +86,11 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
         requireNonNull(tagName);
 
         List<Tag> result = new ArrayList<>();
-        for (Tag tag : tagList) {
+        /*for (Tag tag : tagList) {
             if (tag.tagName.equals(tagName)) {
                 result.add(tag);
             }
-        }
+        }*/
 
         return result;
     }
@@ -124,6 +115,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
 
     /**
      * Adds a new {@code Tag} to the tag list.
+     *
      * @param toAdd The {@code Tag} to add
      */
     public void addTag(Tag toAdd) {
@@ -169,8 +161,8 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TagList // instanceof handles nulls
-                && tagList.equals(((TagList) other).tagList));
+            || (other instanceof TagList // instanceof handles nulls
+            && tagList.equals(((TagList) other).tagList));
     }
 
     @Override
