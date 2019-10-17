@@ -1,6 +1,7 @@
 package tagline.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import tagline.commons.exceptions.IllegalValueException;
@@ -13,15 +14,15 @@ import tagline.model.tag.Tag;
  */
 class JsonAdaptedTag {
 
-    private final String tagName;
+    private final String tagType;
     private final int tagId;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName, int tagId) {
-        this.tagName = tagName;
+    public JsonAdaptedTag(@JsonProperty("tagType") String tagType, @JsonProperty("tagId") int tagId) {
+        this.tagType = tagType;
         this.tagId = tagId;
     }
 
@@ -29,13 +30,13 @@ class JsonAdaptedTag {
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
-        tagName = source.toString();
+        tagType = source.tagType.name();
         tagId = source.tagId;
     }
 
     @JsonValue
-    public String getTagName() {
-        return tagName;
+    public String getTagType() {
+        return tagType;
     }
 
     @JsonValue

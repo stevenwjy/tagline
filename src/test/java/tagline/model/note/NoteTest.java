@@ -68,10 +68,10 @@ public class NoteTest {
         //assertFalse(PROTECTOR.isSameNote(editedProtector));
 
         //// same name, same phone, different attributes -> returns true
-        editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT)
-                //.withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(PROTECTOR.isSameNote(editedProtector));
+        //editedProtector = new NoteBuilder(PROTECTOR).withTimeLastUpdated(VALID_TIMELASTUPDATED_INCIDENT)
+        //        //.withAddress(VALID_ADDRESS_BOB)
+        //        .withTags(VALID_TAG_HUSBAND).build();
+        //assertTrue(PROTECTOR.isSameNote(editedProtector));
 
         //// same name, same email, different attributes -> returns true
         //editedProtector = new NoteBuilder(PROTECTOR).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
@@ -123,7 +123,7 @@ public class NoteTest {
         assertFalse(PROTECTOR.equals(editedProtector));
 
         // different tags -> returns false
-        editedProtector = new NoteBuilder(PROTECTOR).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(PROTECTOR.equals(editedProtector));
+        // editedProtector = new NoteBuilder(PROTECTOR).withTags(VALID_TAG_HUSBAND).build();
+        // assertFalse(PROTECTOR.equals(editedProtector));
     }
 }
