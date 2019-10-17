@@ -29,25 +29,14 @@ Roles:
 
 '''
 
-=== Yehezkiel Raymundo Theodoroes
-image::yehezkiel01.png[width="150", align="left"]
-{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
+=== Jonas Ong
+image::e0031374.png[width="150", align="left"]
+{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
 
 Roles:
 
-- Scheduling and tracking
-- In charge of contact model
-
-'''
-
-=== Steven Wijaya
-image::stevenwjy.png[width="150", align="left"]
-{empty}[https://github.com/stevenwjy[github]] [<<steven#, portfolio>>]
-
-Roles:
-
-- Quality Assurance
-- In charge of contact logic
+- Testing
+- In charge of note logic
 
 '''
 
@@ -62,13 +51,22 @@ Roles:
 
 '''
 
-=== Jonas Ong
-image::e0031374.png[width="150", align="left"]
-{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
+=== Steven Wijaya
+image::stevenwjy.png[width="150", align="left"]
+{empty}[https://github.com/stevenwjy[github]] [<<steven#, portfolio>>]
 
 Roles:
 
-- Testing
-- In charge of note logic
+- Quality Assurance
+- In charge of contact logic
 
 '''
+
+=== Yehezkiel Raymundo Theodoroes
+image::yehezkiel01.png[width="150", align="left"]
+{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
+
+Roles:
+
+- Scheduling and tracking
+- In charge of contact model
