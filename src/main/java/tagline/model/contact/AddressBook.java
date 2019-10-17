@@ -106,9 +106,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// util methods
 
     /**
-     * Return the number of contacts in TagLine.
+     * Returns the number of contacts in AddressBook.
      *
-     * @return The number of contacts
+     * @return the number of contacts.
      */
     public int size() {
         return contacts.size();
