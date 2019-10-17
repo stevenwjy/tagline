@@ -60,8 +60,8 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      * @param tagId The tag ID to find
      * @return True if a matching tag was found
      */
-    public boolean containsTag(int tagId) {
-        return tagList.stream().anyMatch(t -> (t.tagId == tagId));
+    public boolean containsTag(TagId tagId) {
+        return tagList.stream().anyMatch(t -> (t.tagId.equals(tagId)));
     }
 
     /**
@@ -103,7 +103,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
     public List<Tag> findTag(int tagId) {
         List<Tag> result = new ArrayList<>();
         for (Tag tag : tagList) {
-            if (tag.tagId == tagId) {
+            if (tag.tagId.equals(tagId)) {
                 result.add(tag);
                 return result; //tags are assumed to be unique
             }

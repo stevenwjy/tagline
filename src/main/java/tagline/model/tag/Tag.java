@@ -18,19 +18,28 @@ public abstract class Tag {
 
     private static int nextId = 1; //temporary implementation of an incrementing tag ID
 
+    public final TagId tagId;
     public final TagType tagType;
-    public final int tagId;
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagType A valid tag name.
+     * @param tagType A valid tag type.
      */
     public Tag(TagType tagType) {
         requireNonNull(tagType);
+        this.tagId = new TagId();
         this.tagType = tagType;
-        this.tagId = nextId;
-        nextId++;
+    }
+
+    /**
+     * Constructs a {@code Tag} for data from storage.
+     * @param tagId A valid tag id.
+     * @param tagType A valid tag type.
+     */
+    public Tag(TagId tagId, TagType tagType) {
+        this.tagId = tagId;
+        this.tagType = tagType;
     }
 
     @Override

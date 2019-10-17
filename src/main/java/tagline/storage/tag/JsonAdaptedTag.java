@@ -8,6 +8,8 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.contact.ContactId;
 import tagline.model.tag.ContactTag;
 import tagline.model.tag.Tag;
+import tagline.model.tag.Tag.TagType;
+import tagline.model.tag.TagId;
 
 /**
  * Jackson-friendly version of {@link Tag}.
@@ -15,13 +17,13 @@ import tagline.model.tag.Tag;
 public class JsonAdaptedTag {
 
     private final String tagType;
-    private final int tagId;
+    private final String tagId;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(@JsonProperty("tagType") String tagType, @JsonProperty("tagId") int tagId) {
+    public JsonAdaptedTag(@JsonProperty("tagType") String tagType, @JsonProperty("tagId") String tagId) {
         this.tagType = tagType;
         this.tagId = tagId;
     }
@@ -31,7 +33,7 @@ public class JsonAdaptedTag {
      */
     public JsonAdaptedTag(Tag source) {
         tagType = source.tagType.name();
-        tagId = source.tagId;
+        tagId = source.tagId.toString();
     }
 
     @JsonValue
@@ -40,7 +42,7 @@ public class JsonAdaptedTag {
     }
 
     @JsonValue
-    public int getTagId() {
+    public String getTagId() {
         return tagId;
     }
 
@@ -50,6 +52,12 @@ public class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Tag toModelType() throws IllegalValueException {
-        return new ContactTag(new ContactId("123"));
+        final String str = TagType.CONTACT_TAG.name();
+        switch (tagType) {
+        case "contact":
+            return new ContactTag(new TagId(tagId), new ContactId("123"));
+        default:
+            throw new IllegalStateException("Unexpected value: " + tagType);
+        }
     }
 }
