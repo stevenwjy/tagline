@@ -47,6 +47,14 @@ public class SampleDataUtil {
         };
     }
 
+    public static ReadOnlyAddressBook getSampleAddressBook() {
+        AddressBook sampleAb = new AddressBook();
+        for (Contact sampleContact : getSampleContacts()) {
+            sampleAb.addContact(sampleContact);
+        }
+        return sampleAb;
+    }
+
     public static Note[] getSampleNotes() {
         return new Note[]{
             new Note(new NoteId(), new Title(""), new Content(""), new TimeCreated(), new TimeLastEdited(),
@@ -85,14 +93,6 @@ public class SampleDataUtil {
             sampleNb.addNote(sampleNote);
         }
         return sampleNb;
-    }
-
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Contact sampleContact : getSampleContacts()) {
-            sampleAb.addContact(sampleContact);
-        }
-        return sampleAb;
     }
 
     /**
