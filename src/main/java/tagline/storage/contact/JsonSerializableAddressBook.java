@@ -12,7 +12,6 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.contact.AddressBook;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ReadOnlyAddressBook;
-import tagline.storage.contact.JsonAdaptedContact;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

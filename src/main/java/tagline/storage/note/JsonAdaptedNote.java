@@ -44,7 +44,8 @@ public class JsonAdaptedNote {
     @JsonCreator
     public JsonAdaptedNote(@JsonProperty("noteId") String noteId, @JsonProperty("title") String title,
                            @JsonProperty("content") String content, @JsonProperty("timeCreated") String timeCreated,
-                           @JsonProperty("timeLasEdited") String timeLastEdited, @JsonProperty("noteIdCount") String noteIdCount,
+                           @JsonProperty("timeLasEdited") String timeLastEdited,
+                           @JsonProperty("noteIdCount") String noteIdCount,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.noteId = noteId;
         this.title = title;

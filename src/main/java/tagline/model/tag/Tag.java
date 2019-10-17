@@ -36,8 +36,8 @@ public abstract class Tag {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagType.equals(((Tag) other).tagType)); // state check
+            || (other instanceof Tag // instanceof handles nulls
+            && tagType.equals(((Tag) other).tagType)); // state check
     }
 
     @Override

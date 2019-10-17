@@ -12,7 +12,6 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
 import tagline.model.note.ReadOnlyNoteBook;
-import tagline.storage.note.JsonAdaptedNote;
 
 /**
  * An Immutable NoteBook that is serializable to JSON format.

@@ -7,6 +7,9 @@ import java.util.Optional;
 import tagline.commons.exceptions.DataConversionException;
 import tagline.model.tag.ReadOnlyTagList;
 
+/**
+ * Represents a storage for {@link tagline.model.tag.TagList}.
+ */
 public interface TagListStorage {
 
     /**

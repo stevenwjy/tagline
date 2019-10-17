@@ -12,6 +12,9 @@ import tagline.model.tag.ReadOnlyTagList;
 import tagline.model.tag.Tag;
 import tagline.model.tag.TagList;
 
+/**
+ * An Immutable TagList that is serializable to JSON format.
+ */
 public class JsonSeriazableTagList {
 
     public static final String MESSAGE_DUPLICATE_TAG = "Tag list contains duplicate tag(s).";

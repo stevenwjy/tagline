@@ -15,6 +15,9 @@ import tagline.commons.util.JsonUtil;
 import tagline.model.tag.ReadOnlyTagList;
 import tagline.storage.note.JsonNoteBookStorage;
 
+/**
+ * A class to access TagList data stored as a json file on the hard disk.
+ */
 public class JsonTagListStorage implements TagListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonNoteBookStorage.class);

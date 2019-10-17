@@ -2,8 +2,6 @@ package tagline.model.tag;
 
 import java.util.List;
 
-import tagline.model.tag.Tag;
-
 /**
  * Unmodifiable view of a tag list.
  */
