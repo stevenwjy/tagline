@@ -31,7 +31,7 @@ public class TagManager implements TagModel {
         tagList.addTag(tag);
     }
 
-    public List<Tag> findTag(int tagId) {
+    public List<Tag> findTag(TagId tagId) {
         return tagList.findTag(tagId);
     }
 }

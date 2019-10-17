@@ -30,5 +30,5 @@ public interface TagModel {
     /**
      * Returns a list containing the tag matching {@code id}, or an empty list if none were found.
      */
-    List<Tag> findTag(int id);
+    List<Tag> findTag(TagId id);
 }

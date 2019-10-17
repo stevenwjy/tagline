@@ -100,7 +100,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      * @param tagId The ID to match
      * @return A list containing all matching tags
      */
-    public List<Tag> findTag(int tagId) {
+    public List<Tag> findTag(TagId tagId) {
         List<Tag> result = new ArrayList<>();
         for (Tag tag : tagList) {
             if (tag.tagId.equals(tagId)) {
