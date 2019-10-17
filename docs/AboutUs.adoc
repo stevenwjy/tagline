@@ -17,35 +17,26 @@ Role: Project Advisor
 
 '''
 
-=== Yehezkiel Raymundo Theodoroes
-image::yehezkiel01.png[width="150", align="left"]
-{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
-
-Role: Team Member
-
-'''
-
-=== Ng Shi Wei
-image::shiweing.png[width="150", align="left"]
-{empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
-
-Role: Team Member
-
-'''
-
-=== Jonas Ong
-image::e0031374.png[width="150", align="left"]
-{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
-
-Role: Team Member
-
-'''
-
 === Tan Likai
 image::tanlk99.png[width="150", align="left"]
 {empty}[https://github.com/tanlk99[github]] [<<tanlikai#, portfolio>>]
 
-Role: Team Member
+Roles:
+
+- Team Lead
+- In charge of UI
+- In charge of tag model.
+
+'''
+
+=== Yehezkiel Raymundo Theodoroes
+image::yehezkiel01.png[width="150", align="left"]
+{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
+
+Roles:
+
+- Scheduling and tracking
+- In charge of contact model
 
 '''
 
@@ -53,4 +44,31 @@ Role: Team Member
 image::stevenwjy.png[width="150", align="left"]
 {empty}[https://github.com/stevenwjy[github]] [<<steven#, portfolio>>]
 
-Role: Team Member
+Roles:
+
+- Quality Assurance
+- In charge of contact logic
+
+'''
+
+=== Ng Shi Wei
+image::shiweing.png[width="150", align="left"]
+{empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
+
+Roles:
+
+- Documentation
+- In charge of note model
+
+'''
+
+=== Jonas Ong
+image::e0031374.png[width="150", align="left"]
+{empty}[https://github.com/e0031374[github]] [<<jonas#, portfolio>>]
+
+Roles:
+
+- Testing
+- In charge of note logic
+
+'''
