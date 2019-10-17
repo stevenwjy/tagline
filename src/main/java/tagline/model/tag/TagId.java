@@ -3,6 +3,10 @@ package tagline.model.tag;
 import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a tag id in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidTagId(String)}
+ */
 public class TagId {
 
     public static final String MESSAGE_CONSTRAINTS = "TagId numbers should only contain numbers";
