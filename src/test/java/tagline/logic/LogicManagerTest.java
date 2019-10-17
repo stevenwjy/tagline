@@ -29,8 +29,8 @@ import tagline.model.UserPrefs;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactBuilder;
 import tagline.model.contact.ReadOnlyAddressBook;
-import tagline.storage.JsonAddressBookStorage;
-import tagline.storage.JsonNoteBookStorage;
+import tagline.storage.contact.JsonAddressBookStorage;
+import tagline.storage.note.JsonNoteBookStorage;
 import tagline.storage.JsonUserPrefsStorage;
 import tagline.storage.StorageManager;
 

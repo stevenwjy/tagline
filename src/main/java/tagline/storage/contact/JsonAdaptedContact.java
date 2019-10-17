@@ -1,4 +1,4 @@
-package tagline.storage;
+package tagline.storage.contact;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,7 @@ import tagline.model.contact.Phone;
 /**
  * Jackson-friendly version of {@link Contact}.
  */
-class JsonAdaptedContact {
+public class JsonAdaptedContact {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
 

@@ -1,4 +1,4 @@
-package tagline.storage;
+package tagline.storage.note;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +12,13 @@ import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.storage.note.JsonAdaptedNote;
 
 /**
  * An Immutable NoteBook that is serializable to JSON format.
  */
 @JsonRootName(value = "notebook")
-class JsonSerializableNoteBook {
+public class JsonSerializableNoteBook {
 
     public static final String MESSAGE_DUPLICATE_NOTE = "Notes list contains duplicate note(s).";
 
