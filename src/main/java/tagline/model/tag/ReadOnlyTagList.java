@@ -1,4 +1,4 @@
-package tagline.model;
+package tagline.model.tag;
 
 import java.util.List;
 

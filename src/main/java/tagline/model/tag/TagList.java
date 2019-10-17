@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import tagline.model.ReadOnlyTagList;
 import tagline.model.tag.exceptions.DuplicateTagException;
 
 /**

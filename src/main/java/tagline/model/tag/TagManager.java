@@ -2,8 +2,6 @@ package tagline.model.tag;
 
 import java.util.List;
 
-import tagline.model.ReadOnlyTagList;
-
 /**
  * Represents the in-memory model of all tag data.
  */

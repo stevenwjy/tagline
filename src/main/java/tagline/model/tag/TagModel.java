@@ -2,8 +2,6 @@ package tagline.model.tag;
 
 import java.util.List;
 
-import tagline.model.ReadOnlyTagList;
-
 /**
  * The API of the TagModel component.
  */
