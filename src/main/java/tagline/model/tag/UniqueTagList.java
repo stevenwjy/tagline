@@ -8,60 +8,40 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import tagline.model.ReadOnlyTagList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import tagline.model.tag.exceptions.DuplicateTagException;
 
 /**
  * Stores and handles a list of {@code Tag}s.
  */
-public class TagList implements Iterable<Tag>, ReadOnlyTagList {
-    private List<Tag> tagList;
-
-    {
-        tagList = new ArrayList<Tag>();
-    }
-
-    public TagList() {
-    }
-
-    public TagList(ReadOnlyTagList newData) {
-        this();
-        requireNonNull(newData);
-        setTagList(newData.getTagList());
-    }
+public class UniqueTagList implements Iterable<Tag> {
+    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Tag> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Replaces the contents of the tag list with {@code replacement}.
+     *
      * @throws DuplicateTagException If {@code replacement} contains duplicate tags
      */
-    public void setTagList(ReadOnlyTagList replacement) {
+    public void setTags(UniqueTagList replacement) {
         requireNonNull(replacement);
-        setTagList(replacement.getTagList());
+        internalList.setAll(replacement.internalList);
     }
 
     /**
      * Replaces the contents of the tag list with {@code tags}.
+     *
      * @throws DuplicateTagException If {@code tags} contains duplicate tags
      */
-    public void setTagList(List<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         requireAllNonNull(tags);
         if (!tagsAreUnique(tags)) {
             throw new DuplicateTagException();
         }
 
-        tagList = new ArrayList<>();
-        tagList.addAll(tags);
-    }
-
-    /**
-     * Returns true if the tag list contains a {@code Tag} with some name.
-     *
-     * @param tagName The tag name to find
-     * @return True if a matching tag was found
-     */
-    public boolean containsTag(String tagName) {
-        requireNonNull(tagName);
-        return tagList.stream().anyMatch(t -> t.tagName.equals(tagName));
+        internalList.setAll(tags);
     }
 
     /**
@@ -70,8 +50,8 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      * @param tagId The tag ID to find
      * @return True if a matching tag was found
      */
-    public boolean containsTag(int tagId) {
-        return tagList.stream().anyMatch(t -> (t.tagId == tagId));
+    public boolean containsTag(TagId tagId) {
+        return internalList.stream().anyMatch(t -> (t.tagId.equals(tagId)));
     }
 
     /**
@@ -82,7 +62,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      */
     public boolean containsTag(Tag toCheck) {
         requireNonNull(toCheck);
-        return tagList.stream().anyMatch(t -> t.equals(toCheck));
+        return internalList.stream().anyMatch(t -> t.equals(toCheck));
     }
 
     /**
@@ -95,13 +75,14 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
         requireNonNull(tagName);
 
         List<Tag> result = new ArrayList<>();
+        /*
         for (Tag tag : tagList) {
-            if (tag.tagName.equals(tagName)) {
+            if (tag.getTagName().equals(tagName)) {
                 result.add(tag);
             }
-        }
+        }*/
 
-        return result;
+        return Collections.unmodifiableList(result);
     }
 
     /**
@@ -110,20 +91,21 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      * @param tagId The ID to match
      * @return A list containing all matching tags
      */
-    public List<Tag> findTag(int tagId) {
+    public List<Tag> findTag(TagId tagId) {
         List<Tag> result = new ArrayList<>();
-        for (Tag tag : tagList) {
-            if (tag.tagId == tagId) {
+        for (Tag tag : internalList) {
+            if (tag.tagId.equals(tagId)) {
                 result.add(tag);
                 return result; //tags are assumed to be unique
             }
         }
 
-        return result;
+        return Collections.unmodifiableList(result);
     }
 
     /**
      * Adds a new {@code Tag} to the tag list.
+     *
      * @param toAdd The {@code Tag} to add
      */
     public void addTag(Tag toAdd) {
@@ -132,7 +114,7 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
             throw new DuplicateTagException();
         }
 
-        tagList.add(toAdd);
+        internalList.add(toAdd);
     }
 
     /**
@@ -141,12 +123,12 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      * @return The number of tags
      */
     public int size() {
-        return tagList.size();
+        return internalList.size();
     }
 
     @Override
     public String toString() {
-        return size() + " contacts";
+        return size() + " tags";
         // TODO: refine later
     }
 
@@ -155,27 +137,26 @@ public class TagList implements Iterable<Tag>, ReadOnlyTagList {
      */
     @Override
     public Iterator<Tag> iterator() {
-        return tagList.iterator();
+        return internalList.iterator();
     }
 
     /**
      * Returns a read-only view of the tag list.
      */
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tagList);
+    public ObservableList<Tag> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TagList // instanceof handles nulls
-                && tagList.equals(((TagList) other).tagList));
+            || (other instanceof UniqueTagList // instanceof handles nulls
+            && internalList.equals(((UniqueTagList) other).internalList));
     }
 
     @Override
     public int hashCode() {
-        return tagList.hashCode();
+        return internalList.hashCode();
     }
 
     /**

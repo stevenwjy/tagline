@@ -1,13 +1,11 @@
-package tagline.model;
+package tagline.model.tag;
 
 import java.util.List;
-
-import tagline.model.tag.Tag;
 
 /**
  * Unmodifiable view of a tag list.
  */
-public interface ReadOnlyTagList {
+public interface ReadOnlyTagBook {
 
     /**
      * Returns an unmodifiable view of the tag list.

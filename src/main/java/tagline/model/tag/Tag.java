@@ -1,60 +1,67 @@
 package tagline.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static tagline.commons.util.AppUtil.checkArgument;
+
 
 /**
- * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Represents a tag in tagline.
  */
-public class Tag {
+public abstract class Tag {
+    /**
+     * Specifies {@code TagType} for each tag.
+     */
+    public enum TagType {
+        HASH_TAG,
+        CONTACT_TAG,
+        GROUP_TAG,
+    }
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    private static int nextId = 1; //temporary implementation of an incrementing tag ID
-
-    public final String tagName;
-    public final int tagId;
+    public final TagId tagId;
+    public final TagType tagType;
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagName A valid tag name.
+     * @param tagType A valid tag type.
      */
-    public Tag(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
-        this.tagId = nextId;
-        nextId++;
+    public Tag(TagType tagType) {
+        requireNonNull(tagType);
+        this.tagId = new TagId();
+        this.tagType = tagType;
     }
 
     /**
-     * Returns true if a given string is a valid tag name.
+     * Constructs a {@code Tag} for data from storage.
+     * @param tagId A valid tag id.
+     * @param tagType A valid tag type.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public Tag(TagId tagId, TagType tagType) {
+        this.tagId = tagId;
+        this.tagType = tagType;
     }
 
+    /**
+     * Returns true if {@code other} has the same data and ID as this object.
+     * This defines a stronger notion of equality between two tags.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && tagName.equals(((Tag) other).tagName) // state check
-                && tagId == ((Tag) other).tagId);
-    }
-
-    @Override
-    public int hashCode() {
-        return tagName.hashCode();
+            || (other instanceof Tag // instanceof handles nulls
+            && tagType.equals(((Tag) other).tagType) // state check
+            && tagId.equals(((Tag) other).tagId));
     }
 
     /**
-     * Format state as text for viewing.
+     * Returns true if {@code other} has the same data as this object.
+     * This defines a weaker notion of equality between two tags.
      */
-    public String toString() {
-        return '[' + tagName + ']';
+    public boolean isSameContent(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Tag // instanceof handles nulls
+                && tagType.equals(((Tag) other).tagType));
     }
 
+    @Override
+    public abstract String toString();
 }

@@ -3,7 +3,7 @@ package tagline.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tagline.logic.parser.contact.ContactParserUtil.MESSAGE_INVALID_INDEX;
 import static tagline.testutil.Assert.assertThrows;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,16 +17,12 @@ import tagline.model.contact.Phone;
 public class ContactParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -44,10 +40,10 @@ public class ContactParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_CONTACT, ContactParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST, ContactParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_CONTACT, ContactParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST, ContactParserUtil.parseIndex("  1  "));
     }
 
     @Test
