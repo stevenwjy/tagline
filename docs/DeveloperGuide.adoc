@@ -147,9 +147,9 @@ image::ContactCreateSequenceDiagram.png[]
 .Structure of the Note Logic Component
 image::NoteLogicClassDiagram.png[]
 
-.  `Note Logic` is a sub-component of `Logic`
+.  `Note Logic` is a sub-component of `Logic`.
 .  It obtains the user command parsed by `TaglineParser` through the `NoteCommandParser` class.
-.  The user command is passed to the respective command parser. E.g. __"note delete 1"__ will be passed to `DeleteNoteParser`
+.  The user command is passed to the respective command parser. E.g. __"note delete 1"__ will be passed to `DeleteNoteParser`.
 .  This results in a `NoteCommand` object which is returned to the `LogicManager`.
 .  The command execution can affect the `NoteModel` (e.g. adding a note).
 
