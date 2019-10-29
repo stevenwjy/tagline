@@ -70,7 +70,7 @@ public abstract class GroupCommand extends Command {
         // for those contacts, then make them into MemberIds
         Set<MemberId> updatedGroupMemberIds = model.getFilteredContactList()
                 .stream()
-                .map(contact -> contact.getContactId().toInteger().toString())
+                .map(contact -> contact.getContactId().value.toString())
                 .map(member -> new MemberId(member))
                 .collect(Collectors.toSet());
 
