@@ -7,11 +7,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import tagline.model.contact.Contact;
-import tagline.model.contact.ContactManager;
-import tagline.model.note.Note;
-import tagline.model.note.NoteManager;
-
 /**
  * Represents the in-memory model of all tag data.
  */

@@ -4,8 +4,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
-import tagline.model.contact.Contact;
-
 /**
  * The API of the TagModel component.
  */
