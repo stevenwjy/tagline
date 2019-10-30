@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tagline.commons.core.LogsCenter;
 import tagline.commons.exceptions.IllegalValueException;
 import tagline.model.tag.ContactTag;
+import tagline.model.tag.GroupTag;
 import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
 import tagline.model.tag.TagBook;
@@ -44,6 +45,8 @@ public class JsonSerializableTagBook {
             .flatMap(tag -> {
                 if (tag instanceof ContactTag) {
                     return Stream.of(new JsonAdaptedContactTag((ContactTag) tag));
+                } else if (tag instanceof GroupTag) {
+                    return Stream.of(new JsonAdaptedGroupTag((GroupTag) tag));
                 } else {
                     logger.warning("Unknown type of tag: " + tag.toString());
                     return Stream.empty();
