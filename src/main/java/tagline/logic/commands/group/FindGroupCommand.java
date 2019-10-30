@@ -1,9 +1,10 @@
+//@@author e0031374
 package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
 
-import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 
@@ -18,13 +19,12 @@ public class FindGroupCommand extends GroupCommand {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword";
-    //public static final String MESSAGE_KEYWORD_EMPTYLIST = "No groups matching keyword: %1$s";
+    public static final String MESSAGE_KEYWORD_SUCCESS = "Success! Displaying the group.";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
+            + ": Finds a Group matching exactly the specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " exo";
 
     private final GroupNameEqualsKeywordPredicate predicate;
 
@@ -43,8 +43,10 @@ public class FindGroupCommand extends GroupCommand {
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, targetGroup);
         model.setGroup(targetGroup, verifiedGroup);
 
-        return new CommandResult(
-            String.format(Messages.MESSAGE_GROUP_MEMBERS_OVERVIEW, model.getFilteredContactList().size()));
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
+
+        return new CommandResult(MESSAGE_KEYWORD_SUCCESS, ViewType.GROUP_SINGLE);
     }
 
     @Override

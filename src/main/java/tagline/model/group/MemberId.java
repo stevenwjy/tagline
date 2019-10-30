@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.model.group;
 
 import static java.util.Objects.requireNonNull;
@@ -9,8 +10,8 @@ import static tagline.commons.util.AppUtil.checkArgument;
  */
 public class MemberId {
 
-    public static final String MESSAGE_CONSTRAINTS = "MemberIds should be numeric";
-    public static final String VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_CONSTRAINTS = "MemberIds should be numeric and only up to 5 characters long";
+    public static final String VALIDATION_REGEX = "\\d{1,6}";
 
     public final String value;
 

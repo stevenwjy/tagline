@@ -1,3 +1,4 @@
+//@@author e0031374
 package tagline.model.group;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -122,7 +123,7 @@ public class GroupManagerTest {
         groupManager = new GroupManager(addressBook, userPrefs);
         // using these strings as they are unique to WAKANDAN_ROYAL but not found in AVENGERS
         //String[] keywords = {"Manhattan", "York", "Loki", "Chitauri"};
-        String[] keywords = { WAKANDAN_ROYAL.getGroupName().value };
+        GroupName[] keywords = { WAKANDAN_ROYAL.getGroupName() };
         groupManager.updateFilteredGroupList(new GroupNameEqualsKeywordPredicate(Arrays.asList(keywords)));
         assertFalse(groupManager.equals(new GroupManager(addressBook, userPrefs)));
 

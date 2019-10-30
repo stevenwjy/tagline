@@ -1,15 +1,14 @@
+//@@author e0031374
 package tagline.logic.commands.group;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.commons.core.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static tagline.testutil.TypicalContacts.getTypicalAddressBook;
-import static tagline.testutil.TypicalGroups.WAKANDAN_ROYAL;
+import static tagline.testutil.TypicalGroups.MYSTIC_ARTS;
 import static tagline.testutil.TypicalGroups.getTypicalGroupBook;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +18,7 @@ import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
 import tagline.model.group.Group;
 import tagline.model.group.GroupBook;
+import tagline.model.group.GroupName;
 import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.note.NoteBook;
 import tagline.testutil.GroupBuilder;
@@ -37,15 +37,8 @@ public class GroupCommandTest {
             getTypicalGroupBook(), new UserPrefs());
 
         // empty predicate
-        GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate("");
-        //try {
-        //    GroupCommand.findOneGroup(model,"");
-        //} catch (CommandException e) {
-
-        //}
+        GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate(MYSTIC_ARTS.getGroupName().value);
         assertThrows(CommandException.class, () -> GroupCommand.findOneGroup(model, "BTS"));
-        expectedModel.updateFilteredGroupList(predicate);
-        assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
 
     @Test
@@ -58,8 +51,6 @@ public class GroupCommandTest {
         GroupNameEqualsKeywordPredicate predicate = prepareGroupPredicate("BTS");
         //assertThrows(CommandException.class, () -> GroupCommand.findOneGroup(model,""));
         assertThrows(CommandException.class, () -> GroupCommand.findOneGroup(model, "BTS"));
-        expectedModel.updateFilteredGroupList(predicate);
-        assertEquals(Collections.emptyList(), model.getFilteredGroupList());
     }
 
     @Test
@@ -75,8 +66,6 @@ public class GroupCommandTest {
             // fails if it throws an exception
             assertTrue(false);
         }
-        expectedModel.updateFilteredGroupList(predicate);
-        assertEquals(Arrays.asList(WAKANDAN_ROYAL), model.getFilteredGroupList());
     }
 
     @Test
@@ -117,7 +106,7 @@ public class GroupCommandTest {
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private GroupNameEqualsKeywordPredicate prepareGroupPredicate(String userInput) {
-        return new GroupNameEqualsKeywordPredicate(Arrays.asList(userInput));
+        return new GroupNameEqualsKeywordPredicate(Arrays.asList(new GroupName(userInput)));
     }
 
 }

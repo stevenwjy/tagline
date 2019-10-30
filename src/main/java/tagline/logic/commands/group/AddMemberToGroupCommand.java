@@ -1,56 +1,56 @@
+//@@author e0031374
 package tagline.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
 import static tagline.logic.parser.group.GroupCliSyntax.PREFIX_CONTACTID;
-import static tagline.model.group.GroupModel.PREDICATE_SHOW_ALL_GROUPS;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import tagline.commons.util.CollectionUtil;
-
 import tagline.logic.commands.CommandResult;
+import tagline.logic.commands.CommandResult.ViewType;
 import tagline.logic.commands.exceptions.CommandException;
 import tagline.model.Model;
 import tagline.model.group.Group;
 import tagline.model.group.GroupDescription;
 import tagline.model.group.GroupName;
+import tagline.model.group.GroupNameEqualsKeywordPredicate;
 import tagline.model.group.MemberId;
 
 /**
  * Edits the details of an existing group in the address book.
  */
-public class AddMemberToGroupCommand extends GroupCommand {
+public class AddMemberToGroupCommand extends EditGroupCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add a contact to the group identified "
+    public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
+            + ": Add a contact to the group identified "
             + "by the group name and the contact ID number displayed in the contact list.\n "
             + "Parameters: GROUP_NAME (one word, cannot contain space) "
-            + "[" + PREFIX_CONTACTID + "CONTACT_ID]...\n"
-            + "Example: " + COMMAND_WORD + " BTS_ARMY "
-            + PREFIX_CONTACTID + "47337 ";
+            + "[" + PREFIX_CONTACTID + " CONTACT_ID]...\n"
+            + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " BTS_ARMY "
+            + PREFIX_CONTACTID + " 47337 ";
 
-    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Added contact to Group: %1$s";
+    public static final String MESSAGE_ADD_MEMBER_SUCCESS = "Attempting to add contact(s) to group.";
     public static final String MESSAGE_NOT_ADDED = "At least one contactID to add must be provided.";
 
     //private final Group group;
-    private final String groupName;
+    private final GroupNameEqualsKeywordPredicate predicate;
     private final EditGroupDescriptor editGroupDescriptor;
 
     /**
-     * @param groupName of the group in the filtered group list to edit
+     * @param predicate of the group in the filtered group list to edit
      * @param editGroupDescriptor details to edit the group with
      */
 
-    public AddMemberToGroupCommand(String groupName, EditGroupDescriptor editGroupDescriptor) {
-        requireNonNull(groupName);
+    public AddMemberToGroupCommand(GroupNameEqualsKeywordPredicate predicate, EditGroupDescriptor editGroupDescriptor) {
+        requireNonNull(predicate);
         requireNonNull(editGroupDescriptor);
 
         //this.index = index;
-        this.groupName = groupName.trim();
+        this.predicate = predicate;
         this.editGroupDescriptor = new EditGroupDescriptor(editGroupDescriptor);
     }
 
@@ -58,7 +58,16 @@ public class AddMemberToGroupCommand extends GroupCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Group groupToEdit = findOneGroup(model, groupName);
+        Group groupToEdit = findOneGroup(model, predicate);
+
+        Optional<Set<MemberId>> optMembers = editGroupDescriptor.getMemberIds();
+        //assert optMembers.isPresent();
+
+        Set<MemberId> notFound = new HashSet<>();
+        if (optMembers.isPresent()) {
+            notFound = GroupCommand.memberIdDoesntExistInContactModel(model, optMembers.get());
+        }
+
         // adds all user-input contactIds as members of this Group checks deferred
         Group editedGroup = createEditedGroup(groupToEdit, editGroupDescriptor);
 
@@ -67,8 +76,11 @@ public class AddMemberToGroupCommand extends GroupCommand {
         Group verifiedGroup = GroupCommand.verifyGroupWithModel(model, editedGroup);
         model.setGroup(groupToEdit, verifiedGroup);
 
-        model.updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
-        return new CommandResult(String.format(MESSAGE_ADD_MEMBER_SUCCESS, verifiedGroup));
+        model.updateFilteredContactList(GroupCommand.groupToContactIdPredicate(verifiedGroup));
+        model.updateFilteredGroupList(GroupNameEqualsKeywordPredicate.generatePredicate(verifiedGroup));
+
+        return new CommandResult(MESSAGE_ADD_MEMBER_SUCCESS + GroupCommand.notFoundString(notFound),
+                ViewType.GROUP_SINGLE);
     }
 
     /**
@@ -104,113 +116,8 @@ public class AddMemberToGroupCommand extends GroupCommand {
 
         // state check
         AddMemberToGroupCommand e = (AddMemberToGroupCommand) other;
-        return groupName.equals(e.groupName)
+        return predicate.equals(e.predicate)
                 && editGroupDescriptor.equals(e.editGroupDescriptor);
     }
 
-    /**
-     * Stores the details to edit the group with. Each non-empty field value will replace the
-     * corresponding field value of the group.
-     */
-    public static class EditGroupDescriptor {
-        private GroupName groupName;
-        private GroupDescription description;
-        private Set<MemberId> memberIds;
-        //private Set<Tag> tags;
-
-        public EditGroupDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditGroupDescriptor(EditGroupDescriptor toCopy) {
-            setGroupName(toCopy.groupName);
-            setGroupDescription(toCopy.description);
-            setMemberIds(toCopy.memberIds);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(groupName, description, memberIds);
-        }
-
-        public void setGroupName(GroupName groupName) {
-            this.groupName = groupName;
-        }
-
-        public Optional<GroupName> getGroupName() {
-            return Optional.ofNullable(groupName);
-        }
-
-        public void setGroupDescription(GroupDescription description) {
-            this.description = description;
-        }
-
-        public Optional<GroupDescription> getGroupDescription() {
-            return Optional.ofNullable(description);
-        }
-
-        /**
-         * Sets {@code memberIds} to this object's {@code memberIds}.
-         * A defensive copy of {@code memberIds} is used internally.
-         */
-        public void setMemberIds(Set<MemberId> memberIds) {
-            this.memberIds = (memberIds != null) ? new HashSet<>(memberIds) : null;
-        }
-
-        /**
-         * Adds {@code memberIds} to this object's {@code memberIds}.
-         * A defensive copy of {@code memberIds} is used internally.
-         */
-        public void addMemberIds(Set<MemberId> memberIds) {
-            this.memberIds = (memberIds != null) ? new HashSet<>(memberIds) : null;
-        }
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<MemberId>> getMemberIds() {
-            return (memberIds != null) ? Optional.of(Collections.unmodifiableSet(memberIds)) : Optional.empty();
-        }
-
-        ///**
-        // * Sets {@code tags} to this object's {@code tags}.
-        // * A defensive copy of {@code tags} is used internally.
-        // */
-        //public void setTags(Set<Tag> tags) {
-        //    this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        //}
-
-        ///**
-        // * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-        // * if modification is attempted.
-        // * Returns {@code Optional#empty()} if {@code tags} is null.
-        // */
-        //public Optional<Set<Tag>> getTags() {
-        //    return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        //}
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditGroupDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditGroupDescriptor e = (EditGroupDescriptor) other;
-
-            return getGroupName().equals(e.getGroupName())
-                    && getMemberIds().equals(e.getMemberIds());
-        }
-    }
 }
