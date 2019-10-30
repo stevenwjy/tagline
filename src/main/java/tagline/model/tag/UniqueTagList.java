@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import tagline.model.tag.exceptions.DuplicateTagException;
+import tagline.model.tag.exceptions.TagNotFoundException;
 
 /**
  * Stores and handles a list of {@code Tag}s.
@@ -66,6 +67,17 @@ public class UniqueTagList implements Iterable<Tag> {
         }
 
         internalList.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent tag from the list.
+     * The tag must exist in the list.
+     */
+    public void removeTag(Tag toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new TagNotFoundException();
+        }
     }
 
     /**

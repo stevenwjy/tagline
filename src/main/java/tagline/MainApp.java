@@ -26,6 +26,8 @@ import tagline.model.group.GroupBook;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.NoteBook;
 import tagline.model.note.ReadOnlyNoteBook;
+import tagline.model.tag.ReadOnlyTagBook;
+import tagline.model.tag.TagBook;
 import tagline.model.util.SampleDataUtil;
 import tagline.storage.JsonUserPrefsStorage;
 import tagline.storage.Storage;
@@ -67,12 +69,14 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         NoteBookStorage noteBookStorage = new JsonNoteBookStorage(userPrefs.getNoteBookFilePath());
         GroupBookStorage groupBookStorage = new JsonGroupBookStorage(userPrefs.getGroupBookFilePath());
         TagBookStorage tagBookStorage = new JsonTagBookStorage((userPrefs.getTagBookFilePath()));
-        storage = new StorageManager(addressBookStorage, noteBookStorage,
-            groupBookStorage, tagBookStorage, userPrefsStorage);
+
+        storage = new StorageManager(addressBookStorage, noteBookStorage, groupBookStorage, tagBookStorage,
+            userPrefsStorage);
 
         initLogging(config);
 
@@ -156,6 +160,30 @@ public class MainApp extends Application {
     }
 
     /**
+     * Gets and returns a {@code ReadOnlyTagBook} from {@code storage}.
+     */
+    private ReadOnlyTagBook getTagBookFromStorage(Storage storage) {
+        Optional<ReadOnlyTagBook> tagBookOptional = Optional.empty();
+        ReadOnlyTagBook initialTagBookData;
+
+        try {
+            tagBookOptional = storage.readTagBook();
+            if (!tagBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample group book");
+            }
+            initialTagBookData = tagBookOptional.orElseGet(SampleDataUtil::getSampleTagBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty group book");
+            initialTagBookData = new TagBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty group book");
+            initialTagBookData = new TagBook();
+        }
+
+        return initialTagBookData;
+    }
+
+    /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book, note book and
      * {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
@@ -166,8 +194,9 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialAddressBookData = getAddressBookFromStorage(storage);
         ReadOnlyNoteBook initialNoteBookData = getNoteBookFromStorage(storage);
         ReadOnlyGroupBook initialGroupBookData = getGroupBookFromStorage(storage);
+        ReadOnlyTagBook initialTagBookData = getTagBookFromStorage(storage);
         return new ModelManager(initialAddressBookData, initialNoteBookData,
-            initialGroupBookData, userPrefs);
+            initialGroupBookData, initialTagBookData, userPrefs);
     }
 
     private void initLogging(Config config) {
