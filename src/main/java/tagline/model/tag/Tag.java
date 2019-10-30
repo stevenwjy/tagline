@@ -4,14 +4,7 @@ package tagline.model.tag;
  * Represents a tag in tagline.
  */
 public abstract class Tag {
-    public final TagId tagId;
-
-    /**
-     * Constructs a {@code Tag}.
-     */
-    Tag() {
-        this.tagId = new TagId();
-    }
+    private final TagId tagId;
 
     /**
      * Constructs a {@code Tag} for data from storage.
@@ -37,8 +30,14 @@ public abstract class Tag {
             && tagId.equals(((Tag) other).tagId);
     }
 
+    /**
+     * Returns true if a tag matches {@code tagType} and {@code content}.
+     * @param tagType Type of the tag.
+     * @param content Content of the tag.
+     * @return True if a tag matches the given paramaters.
+     */
+    public abstract boolean match(TagType tagType, String content);
+
     @Override
     public abstract String toString();
-
-    public abstract boolean isSameContent(Tag other);
 }

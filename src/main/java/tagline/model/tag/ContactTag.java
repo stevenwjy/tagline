@@ -16,7 +16,7 @@ public class ContactTag extends Tag {
      * @param contactId A valid contactId
      */
     public ContactTag(ContactId contactId) {
-        super();
+        super(TagIdGenerator.SHARED.getTagId(TagType.CONTACT_TAG, contactId.value.toString()));
         this.contactId = contactId;
     }
 
@@ -36,13 +36,16 @@ public class ContactTag extends Tag {
     }
 
     /**
-     * Checks whether a contact tag has the same content with another tag.
+     * Returns true if a tag matches the {@code tagType} and {@String content}.
      *
-     * @param other Other tag
+     * @param tagType Type of the tag.
+     * @param content Content of the tag.
+     * @return True if a tag matches the given parameters.
      */
-    public boolean isSameContent(Tag other) {
-        return (other instanceof ContactTag)
-            && contactId.equals(((ContactTag) other).contactId);
+    public boolean match(TagType tagType, String content) {
+        return tagType == TagType.CONTACT_TAG
+            && ContactId.isValidId(content)
+            && contactId.equals(new ContactId(content));
     }
 
     @Override
