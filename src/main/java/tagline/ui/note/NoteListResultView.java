@@ -10,15 +10,15 @@ import tagline.ui.note.NoteListPanel;
 /**
  * The UI component that displays a note list as a result.
  */
-public class NoteResultView extends ResultView {
-    private static final String FXML = "NoteResultView.fxml";
+public class NoteListResultView extends ResultView {
+    private static final String FXML = "NoteListResultView.fxml";
 
     private NoteListPanel noteListPanel;
 
     @FXML
     private StackPane noteListPanelPlaceholder;
 
-    public NoteResultView() {
+    public NoteListResultView() {
         super(FXML);
     }
 

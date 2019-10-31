@@ -10,16 +10,16 @@ import tagline.ui.contact.ContactListPanel;
 /**
  * The UI component that displays the contact list as a result.
  */
-public class ContactResultView extends ResultView {
+public class ContactListResultView extends ResultView {
 
-    private static final String FXML = "ContactResultView.fxml";
+    private static final String FXML = "ContactListResultView.fxml";
 
     private ContactListPanel contactListPanel;
 
     @FXML
     private StackPane contactListPanelPlaceholder;
 
-    public ContactResultView() {
+    public ContactListResultView() {
         super(FXML);
     }
 

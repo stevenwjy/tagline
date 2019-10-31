@@ -13,10 +13,10 @@ import tagline.model.contact.Contact;
 import tagline.model.group.Group;
 import tagline.model.note.Note;
 import tagline.model.tag.Tag;
-import tagline.ui.contact.ContactResultView;
+import tagline.ui.contact.ContactListResultView;
 import tagline.ui.group.GroupListResultView;
 import tagline.ui.group.GroupProfileResultView;
-import tagline.ui.note.NoteResultView;
+import tagline.ui.note.NoteListResultView;
 import tagline.ui.tag.TagListResultView;
 
 /**
@@ -98,13 +98,13 @@ public class ResultPane extends UiPart<StackPane> {
                                ObservableList<Tag> filteredTagList) {
         resultViewMap = new HashMap<>();
 
-        ContactResultView contactResultView = new ContactResultView();
-        contactResultView.fillInnerParts(filteredContactList);
-        resultViewMap.put(ViewType.CONTACT_LIST, contactResultView);
+        ContactListResultView contactListResultView = new ContactListResultView();
+        contactListResultView.fillInnerParts(filteredContactList);
+        resultViewMap.put(ViewType.CONTACT_LIST, contactListResultView);
 
-        NoteResultView noteResultView = new NoteResultView();
-        noteResultView.fillInnerParts(filteredNoteList);
-        resultViewMap.put(ViewType.NOTE, noteResultView);
+        NoteListResultView noteListResultView = new NoteListResultView();
+        noteListResultView.fillInnerParts(filteredNoteList);
+        resultViewMap.put(ViewType.NOTE, noteListResultView);
 
         GroupProfileResultView groupProfileResultView = new GroupProfileResultView();
         groupProfileResultView.fillInnerParts(filteredGroupList, filteredContactList);
