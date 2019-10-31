@@ -3,6 +3,7 @@ package tagline.model.tag;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
@@ -76,8 +77,16 @@ public class TagBook implements ReadOnlyTagBook {
      * Removes a tag from the tag book.
      * The tag must already exist in the tag book.
      */
+
     public void removeTag(Tag p) {
         tags.removeTag(p);
+    }
+
+    /**
+     * Finds a tag in {@code TagBook} which are equal to {@code tag}.
+     */
+    public Optional<Tag> findTag(Tag tag) {
+        return tags.findTag(tag);
     }
 
     //// util methods

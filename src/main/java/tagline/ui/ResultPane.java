@@ -113,7 +113,7 @@ public class ResultPane extends UiPart<StackPane> {
         tagListResultView.fillInnerParts(filteredTagList);
         resultViewMap.put(ViewType.TAG_LIST, tagListResultView);
 
-        //set to contact result view by default
-        setCurrentViewType(ViewType.CONTACT);
+        //set to note result view by default
+        setCurrentViewType(ViewType.NOTE);
     }
 }

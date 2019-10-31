@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
@@ -154,9 +155,20 @@ public interface Model {
 
     /**
      * Finds a {@code Note} in the note book based on the {@code noteId}.
+     *
      * @return Optional object if corresponding note is found, empty otherwise
      */
-    public Optional<Note> findNote(NoteId noteId);
+    Optional<Note> findNote(NoteId noteId);
+
+    /**
+     * Tags a note.
+     */
+    void tagNote(Note target, Tag tag);
+
+    /**
+     * Untags a note.
+     */
+    void untagNote(Note target, Tag tag);
 
     /**
      * Returns an unmodifiable view of the filtered note list
@@ -225,6 +237,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGroupList(Predicate<Group> predicate);
+
+    /**
+     * Registers the tag in the TagManager if it is not.
+     *
+     * @return the tag.
+     */
+    Tag createOrFindTag(Tag tag);
 
     /**
      * Returns an unmodifiable copy of the filtered group list with a set predicate.

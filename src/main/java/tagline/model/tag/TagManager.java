@@ -2,6 +2,7 @@ package tagline.model.tag;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -89,5 +90,9 @@ public class TagManager implements TagModel {
         TagManager other = (TagManager) obj;
         return tagBook.equals(other.tagBook)
             && filteredTags.equals(other.filteredTags);
+
+        public Optional<Tag> findTag(Tag tag) {
+            requireNonNull(tag);
+            return tagBook.findTag(tag);
+        }
     }
-}

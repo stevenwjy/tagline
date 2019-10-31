@@ -1,5 +1,6 @@
 package tagline.model.tag;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -27,6 +28,7 @@ public interface TagModel {
      * Adds the given tag.
      * {@code tag} must not already exist in the tag list.
      */
+
     void addTag(Tag tag);
 
     /**
@@ -51,4 +53,9 @@ public interface TagModel {
      * Returns an unmodifiable copy of the filtered tag list with a set predicate.
      */
     ObservableList<Tag> getFilteredTagListWithPredicate(Predicate<Tag> predicate);
+
+    /**
+     * Finds tag inside of TagModel.
+     */
+    Optional<Tag> findTag(Tag tag);
 }

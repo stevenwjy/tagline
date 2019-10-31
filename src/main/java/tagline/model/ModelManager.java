@@ -239,6 +239,16 @@ public class ModelManager implements Model {
         return noteManager.findNote(noteId);
     }
 
+    @Override
+    public void tagNote(Note note, Tag tag) {
+        noteManager.tagNote(note, tag);
+    }
+
+    @Override
+    public void untagNote(Note note, Tag tag) {
+        noteManager.untagNote(note, tag);
+    }
+
     //=========== Filtered Note List Accessors =============================================================
 
     /**
@@ -358,6 +368,19 @@ public class ModelManager implements Model {
         return tagManager.getFilteredTagListWithPredicate(predicate);
     }
 
+    @Override
+    public Tag createOrFindTag(Tag tag) {
+        Optional<Tag> foundTag = tagManager.findTag(tag);
+
+        if (foundTag.isPresent()) {
+            return foundTag.get();
+        }
+
+        tagManager.addTag(tag);
+
+        return tag;
+    }
+
     //========================================================================================================
 
     @Override
@@ -380,5 +403,4 @@ public class ModelManager implements Model {
             && tagManager.equals(other.tagManager)
             && userPrefs.equals(other.userPrefs);
     }
-
 }
