@@ -52,6 +52,16 @@ public class TagManager implements TagModel {
         tagBook.removeTag(tag);
     }
 
+    /**
+     * Find tag in the tag book.
+     * @param tag A tag to be searched.
+     * @return An optional of {@code Tag} if the {@code Tag} exists in the tag book.
+     */
+    public Optional<Tag> findTag(Tag tag) {
+        requireNonNull(tag);
+        return tagBook.findTag(tag);
+    }
+
     //=========== Filtered Contact List Accessors =============================================================
 
     @Override
@@ -90,9 +100,5 @@ public class TagManager implements TagModel {
         TagManager other = (TagManager) obj;
         return tagBook.equals(other.tagBook)
             && filteredTags.equals(other.filteredTags);
-
-        public Optional<Tag> findTag(Tag tag) {
-            requireNonNull(tag);
-            return tagBook.findTag(tag);
-        }
     }
+}
