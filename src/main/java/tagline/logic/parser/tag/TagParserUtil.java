@@ -3,8 +3,6 @@ package tagline.logic.parser.tag;
 import static tagline.commons.core.Messages.MESSAGE_INVALID_TAG_FORMAT;
 import static tagline.commons.core.Messages.MESSAGE_UNKNOWN_TAG;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
