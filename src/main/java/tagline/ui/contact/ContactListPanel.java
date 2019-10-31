@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.contact;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -6,6 +6,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import tagline.model.contact.Contact;
+import tagline.ui.UiPart;
+import tagline.ui.contact.ContactListCard;
 
 /**
  * Panel containing the list of contacts.

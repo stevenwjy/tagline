@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.note;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import tagline.model.note.Note;
 import tagline.model.tag.Tag;
+import tagline.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Note}.

@@ -13,6 +13,11 @@ import tagline.model.contact.Contact;
 import tagline.model.group.Group;
 import tagline.model.note.Note;
 import tagline.model.tag.Tag;
+import tagline.ui.contact.ContactResultView;
+import tagline.ui.group.GroupListResultView;
+import tagline.ui.group.GroupSingleResultView;
+import tagline.ui.note.NoteResultView;
+import tagline.ui.tag.TagListResultView;
 
 /**
  * The UI component that displays the command result.
@@ -95,7 +100,7 @@ public class ResultPane extends UiPart<StackPane> {
 
         ContactResultView contactResultView = new ContactResultView();
         contactResultView.fillInnerParts(filteredContactList);
-        resultViewMap.put(ViewType.CONTACT, contactResultView);
+        resultViewMap.put(ViewType.CONTACT_LIST, contactResultView);
 
         NoteResultView noteResultView = new NoteResultView();
         noteResultView.fillInnerParts(filteredNoteList);
@@ -103,7 +108,7 @@ public class ResultPane extends UiPart<StackPane> {
 
         GroupSingleResultView groupSingleResultView = new GroupSingleResultView();
         groupSingleResultView.fillInnerParts(filteredGroupList, filteredContactList);
-        resultViewMap.put(ViewType.GROUP_SINGLE, groupSingleResultView);
+        resultViewMap.put(ViewType.GROUP_PROFILE, groupSingleResultView);
 
         GroupListResultView groupListResultView = new GroupListResultView();
         groupListResultView.fillInnerParts(filteredGroupList);

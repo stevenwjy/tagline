@@ -1,4 +1,4 @@
-package tagline.ui;
+package tagline.ui.group;
 
 import java.util.Comparator;
 
@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import tagline.model.group.Group;
+import tagline.ui.UiPart;
 
 /**
  * A UI component that displays information of a {@code Group}.
