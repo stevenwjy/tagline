@@ -3,11 +3,13 @@ package tagline.logic.commands.contact;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
+import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.ContactIdEqualsKeywordPredicate;
 import tagline.model.note.NoteContainsTagsPredicate;
@@ -20,17 +22,20 @@ public class ShowContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "show";
 
-    public static final String MESSAGE_SUCCESS = "Listed notes for tags: %1$s";
+    public static final String MESSAGE_SUCCESS = "Successfully showed profile for %1$s";
+    public static final String MESSAGE_FAILED = "Failed to find contact with id: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
         + ": Shows a contact profile whose id matches the id given in the query\n"
         + "Parameters: CONTACT_ID (must be a positive integer)\n"
         + "Example: " + COMMAND_WORD + " 1";
 
+    private final ContactId contactId;
     private final ContactIdEqualsKeywordPredicate predicateContact;
     private final NoteContainsTagsPredicate predicateNote;
 
     public ShowContactCommand(ContactId contactId) {
+        this.contactId = contactId;
         this.predicateContact = new ContactIdEqualsKeywordPredicate(contactId);
         this.predicateNote = new NoteContainsTagsPredicate(Collections.singletonList(new ContactTag(contactId)));
     }
@@ -38,10 +43,15 @@ public class ShowContactCommand extends ContactCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        Optional<Contact> optionalContact = model.findContact(contactId);
+
+        if (optionalContact.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_FAILED, contactId), ViewType.NONE);
+        }
+
         model.updateFilteredContactList(predicateContact);
         model.updateFilteredNoteList(predicateNote);
-        return new CommandResult(
-            String.format(MESSAGE_SUCCESS, model.getFilteredNoteList().size()),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, optionalContact.get().getName()),
             ViewType.CONTACT_PROFILE);
     }
 
