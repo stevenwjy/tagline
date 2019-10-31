@@ -52,7 +52,7 @@ public class ModelManager implements Model {
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook
-            + ", note book: " + noteBook + ", group book" + groupBook
+            + ", note book: " + noteBook + ", group book: " + groupBook + ", tag book: " + tagBook
             + " and user prefs " + userPrefs);
 
         contactManager = new ContactManager(addressBook);
