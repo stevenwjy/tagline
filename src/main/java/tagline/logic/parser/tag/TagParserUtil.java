@@ -13,6 +13,7 @@ import tagline.model.contact.ContactId;
 import tagline.model.group.GroupName;
 import tagline.model.tag.ContactTag;
 import tagline.model.tag.GroupTag;
+import tagline.model.tag.HashTag;
 import tagline.model.tag.Tag;
 
 /**
@@ -38,16 +39,18 @@ public class TagParserUtil {
         final String tagValue = matcher.group("tagValue");
 
         switch (tagKey) {
+
+        case HashTag.TAG_PREFIX:
+            return new HashTag(tagValue);
+
         case ContactTag.TAG_PREFIX:
             return new ContactTag(new ContactId(tagValue));
+
         case GroupTag.TAG_PREFIX:
             return new GroupTag(new GroupName(tagValue));
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_TAG);
         }
-    }
-
-    public static List<Tag> parseTags(List<String> tags) {
-        return new ArrayList<>();
     }
 }
