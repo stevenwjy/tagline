@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 import tagline.model.contact.Contact;
-import tagline.model.group.Group;
 import tagline.model.note.Note;
 import tagline.ui.ResultView;
 import tagline.ui.note.NoteListPanel;

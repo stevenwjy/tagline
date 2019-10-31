@@ -5,13 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collections;
 import java.util.Optional;
 
-import tagline.commons.core.Messages;
 import tagline.logic.commands.CommandResult;
 import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
-import tagline.model.contact.ContactIdEqualsKeywordPredicate;
+import tagline.model.contact.ContactIdEqualsSearchIdPredicate;
 import tagline.model.note.NoteContainsTagsPredicate;
 import tagline.model.tag.ContactTag;
 
@@ -31,12 +30,12 @@ public class ShowContactCommand extends ContactCommand {
         + "Example: " + COMMAND_WORD + " 1";
 
     private final ContactId contactId;
-    private final ContactIdEqualsKeywordPredicate predicateContact;
+    private final ContactIdEqualsSearchIdPredicate predicateContact;
     private final NoteContainsTagsPredicate predicateNote;
 
     public ShowContactCommand(ContactId contactId) {
         this.contactId = contactId;
-        this.predicateContact = new ContactIdEqualsKeywordPredicate(contactId);
+        this.predicateContact = new ContactIdEqualsSearchIdPredicate(contactId);
         this.predicateNote = new NoteContainsTagsPredicate(Collections.singletonList(new ContactTag(contactId)));
     }
 

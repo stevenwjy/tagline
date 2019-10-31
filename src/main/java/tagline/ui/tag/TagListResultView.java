@@ -6,7 +6,6 @@ import javafx.scene.layout.StackPane;
 
 import tagline.model.tag.Tag;
 import tagline.ui.ResultView;
-import tagline.ui.tag.TagListPanel;
 
 /**
  * The UI component that displays the group list as a result.

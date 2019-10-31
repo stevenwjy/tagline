@@ -3,9 +3,9 @@ package tagline.ui.group;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
+
 import tagline.model.group.Group;
 import tagline.ui.ResultView;
-import tagline.ui.group.GroupListPanel;
 
 /**
  * The UI component that displays the group list as a result.

@@ -3,9 +3,9 @@ package tagline.ui.contact;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
+
 import tagline.model.contact.Contact;
 import tagline.ui.ResultView;
-import tagline.ui.contact.ContactListPanel;
 
 /**
  * The UI component that displays the contact list as a result.
