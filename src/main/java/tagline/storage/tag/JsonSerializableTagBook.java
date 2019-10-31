@@ -16,7 +16,6 @@ import tagline.model.tag.GroupTag;
 import tagline.model.tag.ReadOnlyTagBook;
 import tagline.model.tag.Tag;
 import tagline.model.tag.TagBook;
-import tagline.storage.note.JsonAdaptedNote;
 
 /**
  * An Immutable UniqueTagList that is serializable to JSON format.
