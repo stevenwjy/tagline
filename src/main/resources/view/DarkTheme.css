@@ -464,6 +464,18 @@
     -fx-text-fill: #999999;
 }
 
+#contactProfileResultView .big_label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Semibold"
+}
+
+#contactProfileResultView .small_label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI"
+}
+
 #tagsContainer .label {
     -fx-border-width: 1;
     -fx-border-color: white;
