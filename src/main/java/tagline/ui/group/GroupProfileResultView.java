@@ -13,9 +13,9 @@ import tagline.ui.contact.ContactListPanel;
 /**
  * The UI component that displays a single group as a result.
  */
-public class GroupSingleResultView extends ResultView {
+public class GroupProfileResultView extends ResultView {
 
-    private static final String FXML = "GroupSingleResultView.fxml";
+    private static final String FXML = "GroupProfileResultView.fxml";
 
     private ContactListPanel contactListPanel;
 
@@ -28,7 +28,7 @@ public class GroupSingleResultView extends ResultView {
     @FXML
     private StackPane contactListPanelPlaceholder;
 
-    public GroupSingleResultView() {
+    public GroupProfileResultView() {
         super(FXML);
 
         description.managedProperty().bind(description.visibleProperty());

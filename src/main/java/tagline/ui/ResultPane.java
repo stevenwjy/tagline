@@ -15,7 +15,7 @@ import tagline.model.note.Note;
 import tagline.model.tag.Tag;
 import tagline.ui.contact.ContactResultView;
 import tagline.ui.group.GroupListResultView;
-import tagline.ui.group.GroupSingleResultView;
+import tagline.ui.group.GroupProfileResultView;
 import tagline.ui.note.NoteResultView;
 import tagline.ui.tag.TagListResultView;
 
@@ -106,9 +106,9 @@ public class ResultPane extends UiPart<StackPane> {
         noteResultView.fillInnerParts(filteredNoteList);
         resultViewMap.put(ViewType.NOTE, noteResultView);
 
-        GroupSingleResultView groupSingleResultView = new GroupSingleResultView();
-        groupSingleResultView.fillInnerParts(filteredGroupList, filteredContactList);
-        resultViewMap.put(ViewType.GROUP_PROFILE, groupSingleResultView);
+        GroupProfileResultView groupProfileResultView = new GroupProfileResultView();
+        groupProfileResultView.fillInnerParts(filteredGroupList, filteredContactList);
+        resultViewMap.put(ViewType.GROUP_PROFILE, groupProfileResultView);
 
         GroupListResultView groupListResultView = new GroupListResultView();
         groupListResultView.fillInnerParts(filteredGroupList);
