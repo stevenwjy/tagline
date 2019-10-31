@@ -14,6 +14,7 @@ import tagline.model.group.Group;
 import tagline.model.note.Note;
 import tagline.model.tag.Tag;
 import tagline.ui.contact.ContactListResultView;
+import tagline.ui.contact.ContactProfileResultView;
 import tagline.ui.group.GroupListResultView;
 import tagline.ui.group.GroupProfileResultView;
 import tagline.ui.note.NoteListResultView;
@@ -97,6 +98,10 @@ public class ResultPane extends UiPart<StackPane> {
                                ObservableList<Group> filteredGroupList,
                                ObservableList<Tag> filteredTagList) {
         resultViewMap = new HashMap<>();
+
+        ContactProfileResultView contactProfileResultView = new ContactProfileResultView();
+        contactProfileResultView.fillInnerParts(filteredContactList, filteredNoteList);
+        resultViewMap.put(ViewType.CONTACT_PROFILE, contactProfileResultView);
 
         ContactListResultView contactListResultView = new ContactListResultView();
         contactListResultView.fillInnerParts(filteredContactList);

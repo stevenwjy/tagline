@@ -20,6 +20,8 @@ public class ShowContactCommand extends ContactCommand {
 
     public static final String COMMAND_WORD = "show";
 
+    public static final String MESSAGE_SUCCESS = "Listed notes for tags: %1$s";
+
     public static final String MESSAGE_USAGE = COMMAND_KEY + " " + COMMAND_WORD
         + ": Shows a contact profile whose id matches the id given in the query\n"
         + "Parameters: CONTACT_ID (must be a positive integer)\n"
@@ -39,7 +41,7 @@ public class ShowContactCommand extends ContactCommand {
         model.updateFilteredContactList(predicateContact);
         model.updateFilteredNoteList(predicateNote);
         return new CommandResult(
-            String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getFilteredContactList().size()),
+            String.format(MESSAGE_SUCCESS, model.getFilteredNoteList().size()),
             ViewType.CONTACT_PROFILE);
     }
 

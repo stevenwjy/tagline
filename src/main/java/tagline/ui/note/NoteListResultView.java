@@ -3,9 +3,9 @@ package tagline.ui.note;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
+
 import tagline.model.note.Note;
 import tagline.ui.ResultView;
-import tagline.ui.note.NoteListPanel;
 
 /**
  * The UI component that displays a note list as a result.
