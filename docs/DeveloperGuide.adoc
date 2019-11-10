@@ -291,6 +291,19 @@ The `GroupStorage` component,
 * can save `Group` objects in json format and read it back.
 * can save the Group Book data in json format and read it back.
 
+[[Design-TagStorage]]
+==== Tag Storage component
+
+.Class diagram of the Tag Storage Component
+image::TagStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/tag/TagBookStorage.java[`TagBookStorage.java`]
+
+The `TagStorage` component,
+
+* can save `Tag` objects in json format and read it back.
+* can save the Tag Book data in json format and read it back.
+
 [[Design-Commons]]
 === Common classes
 
