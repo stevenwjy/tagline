@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.group.Group;
 import tagline.model.group.GroupBook;
 import tagline.model.group.GroupManager;
+import tagline.model.group.MemberId;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteBook;
@@ -281,6 +283,12 @@ public class ModelManager implements Model {
     public boolean hasGroup(Group group) {
         requireNonNull(group);
         return groupManager.hasGroup(group);
+    }
+
+    @Override
+    public List<Group> groupsWithMember(MemberId memberId) {
+        requireNonNull(memberId);
+        return groupManager.groupsWithMember(memberId);
     }
 
     @Override

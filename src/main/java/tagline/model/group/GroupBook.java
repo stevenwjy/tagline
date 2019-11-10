@@ -66,6 +66,14 @@ public class GroupBook implements ReadOnlyGroupBook {
     }
 
     /**
+     * Returns a list of groups that contain the given member id as one of their members.
+     */
+    public List<Group> groupsWithMember(MemberId memberId) {
+        requireNonNull(memberId);
+        return groups.groupsWithMember(memberId);
+    }
+
+    /**
      * Adds a group to the address book.
      * The group must not already exist in the address book.
      */

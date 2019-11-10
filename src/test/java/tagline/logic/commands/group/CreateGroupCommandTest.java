@@ -12,6 +12,7 @@ import static tagline.testutil.contact.TypicalContacts.BENSON;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -267,6 +268,11 @@ public class CreateGroupCommandTest {
 
         @Override
         public boolean hasGroup(Group note) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Group> groupsWithMember(MemberId memberId) {
             throw new AssertionError("This method should not be called.");
         }
 
