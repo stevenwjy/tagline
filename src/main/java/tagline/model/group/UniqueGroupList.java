@@ -42,7 +42,7 @@ public class UniqueGroupList implements Iterable<Group> {
     /**
      * Returns a list of groups that contain the given contact id as one of their members.
      */
-    public List<Group> groupsWithMember(MemberId memberId) {
+    public List<Group> findGroupsWithMember(MemberId memberId) {
         requireNonNull(memberId);
         return internalList.stream()
             .filter(group -> group.hasMemberWithId(memberId))

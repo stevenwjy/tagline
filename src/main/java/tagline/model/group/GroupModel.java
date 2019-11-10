@@ -63,7 +63,7 @@ public interface GroupModel {
     /**
      * Returns a list of groups that contain the given contact id as one of their members.
      */
-    public List<Group> groupsWithMember(MemberId memberId);
+    public List<Group> findGroupsWithMember(MemberId memberId);
 
     /**
      * Returns true if a group with the same name as {@code groupName} exists in the address book.

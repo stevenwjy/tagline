@@ -287,9 +287,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Group> groupsWithMember(MemberId memberId) {
+    public List<Group> findGroupsWithMember(MemberId memberId) {
         requireNonNull(memberId);
-        return groupManager.groupsWithMember(memberId);
+        return groupManager.findGroupsWithMember(memberId);
     }
 
     @Override

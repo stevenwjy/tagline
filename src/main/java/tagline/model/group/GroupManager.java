@@ -107,9 +107,9 @@ public class GroupManager implements GroupModel {
     }
 
     @Override
-    public List<Group> groupsWithMember(MemberId memberId) {
+    public List<Group> findGroupsWithMember(MemberId memberId) {
         requireNonNull(memberId);
-        return groupBook.groupsWithMember(memberId);
+        return groupBook.findGroupsWithMember(memberId);
     }
 
     @Override

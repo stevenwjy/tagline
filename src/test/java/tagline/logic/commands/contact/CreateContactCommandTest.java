@@ -265,7 +265,7 @@ public class CreateContactCommandTest {
         }
 
         @Override
-        public List<Group> groupsWithMember(MemberId memberId) {
+        public List<Group> findGroupsWithMember(MemberId memberId) {
             throw new AssertionError("This method should not be called.");
         }
 

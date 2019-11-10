@@ -46,7 +46,7 @@ public class ShowContactCommand extends ContactCommand {
 
         List<Tag> associatedTags = new ArrayList<>();
         associatedTags.add(new ContactTag(contactId));
-        associatedTags.addAll(model.groupsWithMember(new MemberId(contactId)).stream()
+        associatedTags.addAll(model.findGroupsWithMember(new MemberId(contactId)).stream()
             .map(group -> new GroupTag(group.getGroupName()))
             .collect(Collectors.toList()));
 

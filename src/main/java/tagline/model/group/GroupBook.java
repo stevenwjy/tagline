@@ -68,9 +68,9 @@ public class GroupBook implements ReadOnlyGroupBook {
     /**
      * Returns a list of groups that contain the given member id as one of their members.
      */
-    public List<Group> groupsWithMember(MemberId memberId) {
+    public List<Group> findGroupsWithMember(MemberId memberId) {
         requireNonNull(memberId);
-        return groups.groupsWithMember(memberId);
+        return groups.findGroupsWithMember(memberId);
     }
 
     /**
