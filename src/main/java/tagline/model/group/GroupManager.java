@@ -113,6 +113,12 @@ public class GroupManager implements GroupModel {
     }
 
     @Override
+    public boolean hasGroupName(GroupName groupName) {
+        requireNonNull(groupName);
+        return groupBook.hasGroupName(groupName);
+    }
+
+    @Override
     public void deleteGroup(Group target) {
         groupBook.removeGroup(target);
     }
