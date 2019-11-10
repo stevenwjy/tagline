@@ -1,0 +1,63 @@
+= Tan Likai - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TagLine
+
+== About the project
+
+My team of 5 software engineering students and I were tasked with enhancing a basic command line interface desktop address book application for our Software Engineering project.
+
+We chose to morph it into a note management application called Tagline. This enhanced application enables students to take notes easily and associate them with contacts.
+
+Below is a screenshot of our project:
+
+image:ui_notes.png[]
+
+My main role was to create a contact profile feature to display notes that are associated with a contact along with other information that are stored about the contact (e.g. email and phone number).
+
+The following sections illustrate some more specific enhancements I have made to the UI, as well as some relevant documentation in the user and developer guides related to these enhancements.
+
+== Summary of contributions
+
+* *Major enhancement*: I added *autocomplete* for commands in TagLine.
+** What it does: 
+** Justification:
+** Highlights:
+
+* *Minor enhancement*: I added a command to list all tags that have been used in Tagline.
+** What it does:
+** Justification:
+** Highlights:
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f12-3&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=stevenwjy&tabRepo=AY1920S1-CS2103T-F12-3%2Fmain%5Bmaster%5D[RepoSense report]]
+
+* *Other contributions*:
+
+** Project management:
+*** Setup TravisCI (https://github.com/AY1920S1-CS2103T-F12-3/main/pull/34[#34])
+*** Initial refactoring and planning for the package structure: https://github.com/AY1920S1-CS2103T-F12-3/main/pull/6[#6]
+
+** Enhancements to existing features:
+*** Refactor parser for contact commands: https://github.com/AY1920S1-CS2103T-F12-3/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/62[#62]
+*** Refactor baseline structure for tag objects: https://github.com/AY1920S1-CS2103T-F12-3/main/pull/80[#80], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/145[#145]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F12-3/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/143[#143]
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/19[#19], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/62[#62])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=contact-profile]
