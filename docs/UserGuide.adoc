@@ -622,8 +622,6 @@ Format:
 
 In Tagline, there are 3 types of tags. They are hash tag, contact tag and group tag.
 
-{empty} +
-
 ===== Tag a note with a hash tag
 
 Hash tag is a tag of the form `#TOPIC` where `TOPIC` could be substituted with any string not longer than 30
@@ -632,8 +630,6 @@ characters.
 Example: `#Assignment_1`, `#Project CS2103T`, `#Meeting Notes`
 
 By tagging a note with a hash tag, user can easily find all notes related to a certain topic.
-
-{empty} +
 
 Here is an example of tagging a note with a hash tag
 
@@ -645,8 +641,6 @@ image::ug_notetag_hashtag1.png[width="600"]
 +
 image::ug_notetag_hashtag2.png[width="600"]
 
-{empty} +
-
 // tag::contact-tag[]
 ===== Tag a note with a contact tag
 
@@ -657,19 +651,15 @@ Example: `@12345`, `@00001`, `@2`
 
 By tagging a note with a contact tag, user can easily find all notes related to a certain contact.
 
-{empty} +
-
 Here is an example of tagging a note with a contact tag
 
 . Enter the command `note tag 1 --t @2` into the command box.
 +
-image::ug_notetag_hashtag1.png[width="600"]
+image::ug_notetag_contacttag1.png[width="600"]
 
 . Send the command and you will be able to see the tag in the note view.
 +
-image::ug_notetag_hashtag2.png[width="600"]
-
-{empty} +
+image::ug_notetag_contacttag2.png[width="600"]
 
 // end::contact-tag[]
 
@@ -689,11 +679,11 @@ Here is an example of tagging a note with a group tag
 
 . Enter the command `note tag 1 --t #cs2103t` into the command box.
 +
-image::ug_notetag_hashtag1.png[width="600"]
+image::ug_notetag_grouptag1.png[width="600"]
 
 . Send the command and you will be able to see the tag in the note view.
 +
-image::ug_notetag_hashtag2.png[width="600"]
+image::ug_notetag_grouptag2.png[width="600"]
 
 {empty} +
 

@@ -69,10 +69,6 @@ include::../UserGuide.adoc[tag=contact-tag]
 
 ---
 
-include::../UserGuide.adoc[tag=group-tag]
-
----
-
 include::../UserGuide.adoc[tag=tag-list]
 
 == Contributions to the Developer Guide
