@@ -608,6 +608,7 @@ NOTE: Upload of image will be supported in v2.0 +
 Partial editing will be supported in v2.0
 // end::note-edit[]
 
+// tag::tagging1[]
 [#note-tag]
 ==== Tag a note: `tag`
 
@@ -638,7 +639,12 @@ image::ug_notetag_hashtag1.png[width="600"]
 +
 image::ug_notetag_hashtag2.png[width="600"]
 
+// end::tagging1[]
+
+{empty} +
+
 // tag::contact-tag[]
+
 ===== Tag a note with a contact tag
 
 Contact tag is a tag of the form `@CONTACT_ID` where `CONTACT_ID` could be substituted with any non-negative integer with
@@ -686,6 +692,8 @@ image::ug_notetag_grouptag2.png[width="600"]
 
 // end::group-tag[]
 
+
+// tag::tagging2[]
 ===== Tag a note with all tags
 We can also combine the three tags above in one `note tag` command.
 
@@ -710,6 +718,7 @@ Example:
 * `note untag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
 +
 Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
+// end::tagging2[]
 
 // tag::note-list[]
 [#note-list]
