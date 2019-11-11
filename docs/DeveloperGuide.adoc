@@ -790,7 +790,7 @@ link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredConta
 link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredNoteList`].
 
 .Sequence diagram of executing `contact show` command.
-image::ContactShowExecutionDiagram.png[]
+image::ContactShowExecutionDiagram.png[width=700]
 
 During translation from contact id to multiple tags, the command objects will call
 link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findGroupsWithMember`] to get all groups that contain
@@ -798,7 +798,7 @@ the specified contact id as one of its members. Afterwards, it creates a single 
 that are associated with the contact id.
 
 .Sequence diagram of translation from contact id into associated tags.
-image::RetrieveAssociatedTagsDiagram.png[]
+image::RetrieveAssociatedTagsDiagram.png[width=700]
 
 A successful execution of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`]
 will return a link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] that indicates
