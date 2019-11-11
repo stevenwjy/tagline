@@ -13,7 +13,7 @@ We chose to morph it into a note management application called Tagline. This enh
 
 Below is a screenshot of our project:
 
-image:ui_notes.png[]
+image:ui_notes.png[width=600]
 
 My main role was to create a contact profile feature to display notes that are associated with a contact along with other information that are stored about the contact (e.g. email and phone number).
 
@@ -65,6 +65,14 @@ include::../UserGuide.adoc[tag=contact-show]
 
 ---
 
+include::../UserGuide.adoc[tag=contact-tag]
+
+---
+
+include::../UserGuide.adoc[tag=group-tag]
+
+---
+
 include::../UserGuide.adoc[tag=tag-list]
 
 == Contributions to the Developer Guide
@@ -74,6 +82,10 @@ include::../UserGuide.adoc[tag=tag-list]
 |===
 
 include::../DeveloperGuide.adoc[tag=contact-profile]
+
+---
+
+include::../DeveloperGuide.adoc[tag=contact-logic]
 
 ---
 

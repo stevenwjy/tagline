@@ -647,8 +647,58 @@ image::ug_notetag_hashtag2.png[width="600"]
 
 {empty} +
 
+// tag::contact-tag[]
 ===== Tag a note with a contact tag
+
+Contact tag is a tag of the form `@CONTACT_ID` where `CONTACT_ID` could be substituted with any non-negative integer with
+at most 8 digits.
+
+Example: `@12345`, `@00001`, `@2`
+
+By tagging a note with a contact tag, user can easily find all notes related to a certain contact.
+
+{empty} +
+
+Here is an example of tagging a note with a contact tag
+
+. Enter the command `note tag 1 --t @2` into the command box.
++
+image::ug_notetag_hashtag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_hashtag2.png[width="600"]
+
+{empty} +
+
+// end::contact-tag[]
+
+// tag::group-tag[]
 ===== Tag a note with a group tag
+
+Group tag is a tag of the form `%GROUP_NAME` where `GROUP_NAME` could be substituted with any string that does not
+contain whitespace.
+
+Example: `#cs2103t`, `#cs2100-cs2101`
+
+By tagging a note with a group tag, user can easily find all notes related to a certain group of contacts.
+
+{empty} +
+
+Here is an example of tagging a note with a group tag
+
+. Enter the command `note tag 1 --t #cs2103t` into the command box.
++
+image::ug_notetag_hashtag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_hashtag2.png[width="600"]
+
+{empty} +
+
+// end::group-tag[]
+
 ===== Tag a note with all tags
 We can also combine the three tags above in one `note tag` command.
 
