@@ -758,7 +758,19 @@ link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#hasGroupName`], whi
 link:{repoURL}/src/main/java/tagline/model/group/GroupName.java[`GroupName`] as parameter and
 returns a boolean whether such group name exists in the data stored by Tagline or not.
 
-===== Filter contacts and notes
+===== Creating the command
+
+Given below is an example scenario where the user enters a command to show a contact profile.
+
+**Step 1:** Similar to other contact commands, the user command is first passed to `TaglineParser` to identify its type
+until it finally arrives at `ShowContactParser` which will create the command object. The `ShowContactParser` also checks
+the input arguments to make sure it follows the basic format.
+
+.Sequence diagram of parsing user input string to obtain a `ShowContactCommand`
+image::FilterTagSequenceDiagram1.png[width=700]
+
+
+===== Executing the command
 
 When executing of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`],
 there will be an initial check whether the provided contact id is valid or not by calling
