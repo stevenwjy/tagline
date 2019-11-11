@@ -769,8 +769,7 @@ until it finally arrives at `ShowContactParser` which will create the command ob
 the input arguments to make sure it follows the basic format.
 
 .Sequence diagram of parsing user input string to obtain a `ShowContactCommand`
-image::FilterTagSequenceDiagram1.png[width=700]
-
+image::ContactShowParserDiagram.png[width=700]
 
 ===== Executing the command
 
