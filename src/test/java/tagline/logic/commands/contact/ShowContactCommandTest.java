@@ -6,9 +6,6 @@ import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_ONE;
 import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_TWO;
 import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
 import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tagline.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tagline.model.contact.ContactModel.PREDICATE_SHOW_ALL_CONTACTS;
-import static tagline.testutil.TypicalIndexes.INDEX_FIRST;
 import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +14,6 @@ import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
-import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
@@ -32,14 +28,6 @@ public class ShowContactCommandTest {
     private static final ViewType SHOW_CONTACT_COMMAND_VIEW_TYPE = ViewType.CONTACT_PROFILE;
     private Model model = new ModelManager(getTypicalAddressBook(), new NoteBook(),
         new GroupBook(), new TagBook(), new UserPrefs());
-
-    @Test
-    public void execute_nonExistingContactId_throwsCommandException() {
-        ContactId nonExistingId = NON_EXISTING_ID;
-        ShowContactCommand showContactCommand = new ShowContactCommand(nonExistingId);
-
-        assertCommandFailure(showContactCommand, model, ShowContactCommand.MESSAGE_NON_EXISTING_ID);
-    }
 
     @Test
     public void equals() {
