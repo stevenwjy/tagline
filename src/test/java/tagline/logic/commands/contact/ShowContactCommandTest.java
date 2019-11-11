@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_ONE;
 import static tagline.logic.commands.CommandTestUtil.CONTACT_ID_TWO;
-import static tagline.logic.commands.CommandTestUtil.NON_EXISTING_ID;
-import static tagline.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tagline.testutil.contact.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import tagline.logic.commands.CommandResult.ViewType;
 import tagline.model.Model;
 import tagline.model.ModelManager;
 import tagline.model.UserPrefs;
-import tagline.model.contact.ContactId;
 import tagline.model.group.GroupBook;
 import tagline.model.note.NoteBook;
 import tagline.model.tag.TagBook;
