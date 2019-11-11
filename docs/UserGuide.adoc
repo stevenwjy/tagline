@@ -157,13 +157,13 @@ Example:
 information that you know about him. +
 You can just enter the following command:
  `contact create --n Dwayne Johnson --p 81234567 --e johnson@gmail.com --d Friend from CS2100`.
-
++
 .Entering the command
 image::ug_contactcreate1.png[width="600"]
 
 * This creates a new contact with name and other attribute values that you entered. +
 The display will show the profile of the contact that you just created.
-
++
 .Command executed, a new contact created
 image::ug_contactcreate2.png[width="600"]
 
@@ -182,13 +182,13 @@ Example:
 * After creating a contact, suppose you get a new information about that person and want to edit the data. +
 You can just enter the following command:
 `contact edit 99022 --a NUS School of Computing`
-
++
 .Entering the command
 image::ug_contactedit1.png[width="600"]
 
 * This edits an existing contact with the id that you entered. +
 The display will show the profile of the contact that you just edited.
-
++
 .Command executed, the new contact data displayed
 image::ug_contactedit2.png[width="600"]
 
@@ -207,13 +207,13 @@ Example:
 * Suppose you feel that it is no longer necessary to store data for one of your contacts +
 You can just enter the following command:
 `contact delete 2`
-
++
 .Entering the command
 image::ug_contactdelete1.png[width="600"]
 
 * This deletes an existing contact with the contact id that you entered. +
 The display will show the refreshed contact list.
-
++
 .Command executed, the specified contact deleted.
 image::ug_contactdelete2.png[width="600"]
 
@@ -230,13 +230,13 @@ Example:
 * Suppose you want to know all the contacts that are stored in Tagline. +
 You can just enter the following command:
 `contact list`
-
++
 .Entering the command
 image::ug_contactlist1.png[width="600"]
 
 * This deletes an existing contact with the contact id that you entered. +
 The display will show the refreshed contact list.
-
++
 .Command executed, all contacts displayed.
 image::ug_contactlist2.png[width="600"]
 
@@ -252,23 +252,23 @@ Example:
 
 * Suppose you just listed all the contacts. However, after seeing so many contacts, you are only interested in finding
 contacts with that contain `Alex` in its name.
-
++
 .Initial list of contacts.
 image::ug_contactfind1.png[width="600"]
 
 * This command allows you to contacts with the specified name easily. +
 You can just enter the following command:
 `contact find Alex`
-
++
 .Entering the command
 image::ug_contactfind2.png[width="600"]
-
++
 .Command executed, only contacts that contain the specified name displayed.
 image::ug_contactfind3.png[width="600"]
 
 ==== Display the profile of a person: `show`
 
-Displaya a contact profile that contains information and list of notes that are associated with a given contact id.
+Displays a contact profile that contains information and list of notes that are associated with a given contact id.
 
 Format:
 
@@ -291,13 +291,13 @@ image::ug_contactshow3.png[width="600"]
 
 * Instead of checking association between notes and contacts one by one, you can just enter the following command:
 `contact show 1`
-
++
 .Entering the command
 image::ug_contactshow4.png[width="600"]
 
 * This command allows you display a profile for a contact with id equals to `1`. The profile contains basic information
 about a contact (i.e. name, email, phone number, address, and description) and list of notes that are associated with it.
-
++
 .Command executed, contact profile displayed
 image::ug_contactshow5.png[width="600"]
 
@@ -335,15 +335,12 @@ Executing this command will trigger a confirmation in the chatbot:
 image::ug_contactclear1.png[width="600"]
 
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
-
++
 .Command executed, the contact list cleared.
 image::ug_contactclear2.png[width="600"]
 
 If you press the ESC key, the command will be aborted.
 
-
-.Filtered tagged notes displayed
-image::ug_notelist6.png[width="600"]
 
 === Manage groups: `group`
 
@@ -732,6 +729,6 @@ Example:
 
 * Suppose you want to know tags that you have used previously and still valid. +
 You can just use the following command: `tag list`.
-
++
 .Command executed, list of tags displayed
 image::ug_taglist1.png[width="600"]
