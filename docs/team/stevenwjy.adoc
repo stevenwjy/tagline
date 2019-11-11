@@ -17,7 +17,7 @@ image:ui_notes.png[width=600]
 
 My main role was to create a contact profile feature to display notes that are associated with a contact along with other information that are stored about the contact (e.g. email and phone number).
 
-The following sections illustrate some more specific enhancements I have made to the UI, as well as some relevant documentation in the user and developer guides related to these enhancements.
+The following sections illustrate some more specific enhancements I have made, as well as some relevant documentation in the user and developer guides related to these enhancements.
 
 == Summary of contributions
 
