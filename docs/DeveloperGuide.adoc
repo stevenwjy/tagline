@@ -796,7 +796,7 @@ the specified contact id as one of its members. Afterwards, it creates a single 
 that are associated with the contact id.
 
 .Sequence diagram of translation from contact id into associated tags.
-image::FilterKeywordSequenceDiagram1.png[]
+image::RetrieveAssociatedTagsDiagram.png[]
 
 A successful execution of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`]
 will return a link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] that indicates
