@@ -266,6 +266,7 @@ image::ug_contactfind2.png[width="600"]
 .Command executed, only contacts that contain the specified name displayed.
 image::ug_contactfind3.png[width="600"]
 
+// tag::contact-show[]
 ==== Display the profile of a person: `show`
 
 Displays a contact profile that contains information and list of notes that are associated with a given contact id.
@@ -300,6 +301,7 @@ about a contact (i.e. name, email, phone number, address, and description) and l
 +
 .Command executed, contact profile displayed
 image::ug_contactshow5.png[width="600"]
+// end::contact-show[]
 
 ==== Pin a person: `pin` `[coming in v2.0]`
 
@@ -744,6 +746,7 @@ Sort notes in different orders (i.e last updated date, alphabetically).
 
 === Manage your tags: `tag`
 
+// tag::tag-list[]
 ==== Filter tags: `list`
 
 Lists all valid tags that have ever been associated with your notes.
@@ -765,3 +768,4 @@ You can just use the following command: `tag list`.
 +
 .Command executed, list of tags displayed
 image::ug_taglist1.png[width="600"]
+// end::tag-list[]

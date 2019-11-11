@@ -291,6 +291,7 @@ The `GroupStorage` component,
 * can save `Group` objects in json format and read it back.
 * can save the Group Book data in json format and read it back.
 
+// tag::tagstorage[]
 [[Design-TagStorage]]
 ==== Tag Storage component
 
@@ -303,6 +304,7 @@ The `TagStorage` component,
 
 * can save `Tag` objects in json format and read it back.
 * can save the Tag Book data in json format and read it back.
+// end::tagstorage[]
 
 [[Design-Commons]]
 === Common classes
@@ -735,12 +737,58 @@ all the group names that are converted into `Tag` objects.
 
 ===== Parsing for contact and group tags
 
+Parsing for contact and group tags are handled by
+link:{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java[`TagParserUtil`] as described
+in the tagging feature section. Differences between input format with other type of tag (i.e. hash tag) is only the
+first character where contact tag uses `@` symbol and group tag uses `%` symbol.
 
-===== Filter contact by contact id
+However, the main difference is in the implementation of
+link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag#isValidInModel`], which is an abstract method that needs
+to be implemented by every concrete subclass of link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag`].
+The following are how this method is implemented in contact and note tags:
 
+* Contact tag determines its validity in the model by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findContact`], which takes a
+link:{repoURL}/src/main/java/tagline/model/contact/ContactId.java[`ContactId`] as parameter and
+returns an optional object of link:{repoURL}/src/main/java/tagline/model/contact/Contact.java[`Contact`]
+that has the specified contact id. If such contact object exists, a contact tag is considered valid.
 
-===== Filter notes by contact and group tags
+* Group tag determines its validity in the model by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#hasGroupName`], which takes a
+link:{repoURL}/src/main/java/tagline/model/group/GroupName.java[`GroupName`] as parameter and
+returns a boolean whether such group name exists in the data stored by Tagline or not.
 
+===== Filter contacts and notes
+
+When executing of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`],
+there will be an initial check whether the provided contact id is valid or not by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findContact`] similar with checking validity for contact tag.
+If the provided contact id is invalid (e.g. non existing contact), the execution will stop and directly return a
+link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] which informs about the error.
+
+Suppose now we only consider the `contact show` command that is provided with valid contact id. During execution, it will
+translate the contact id into
+link:{repoURL}/src/main/java/tagline/model/contact/ContactIdEqualsSearchIdPredicate.java[`ContactIdEqualsSearchIdPredicate`] and
+link:{repoURL}/src/main/java/tagline/model/note/NoteContainsTagsPredicate.java[`NoteContainsTagsPredicate`] objects.
+Afterwards, those predicate will be used to update the observable contact and note list, by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredContactList`] and
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredNoteList`].
+
+.Sequence diagram of executing `contact show` command.
+image::FilterKeywordSequenceDiagram1.png[]
+
+During translation from contact id to multiple tags, the command objects will call
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findGroupsWithMember`] to get all groups that contain
+the specified contact id as one of its members. Afterwards, it creates a single array of tags that represent all tags
+that are associated with the contact id.
+
+.Sequence diagram of translation from contact id into associated tags.
+image::FilterKeywordSequenceDiagram1.png[]
+
+A successful execution of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`]
+will return a link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] that indicates
+a view change into link:{repoURL}/src/main/java/tagline/ui/contact/ContactProfileResultView.java[`ContactProfileResultView`].
+The result view for contact profile observes the changes on observable contact and note lists to update accordingly.
 
 // end::contact-profile[]
 

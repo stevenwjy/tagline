@@ -44,20 +44,13 @@ public class ShowContactCommand extends ContactCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        List<Tag> associatedTags = new ArrayList<>();
-        associatedTags.add(new ContactTag(contactId));
-        associatedTags.addAll(model.findGroupsWithMember(new MemberId(contactId)).stream()
-            .map(group -> new GroupTag(group.getGroupName()))
-            .collect(Collectors.toList()));
-
-        NoteContainsTagsPredicate predicateNote = new NoteContainsTagsPredicate(associatedTags);
-        ContactIdEqualsSearchIdPredicate predicateContact = new ContactIdEqualsSearchIdPredicate(contactId);
-
         Optional<Contact> optionalContact = model.findContact(contactId);
-
         if (optionalContact.isEmpty()) {
             return new CommandResult(String.format(MESSAGE_FAILED, contactId), ViewType.NONE);
         }
+
+        ContactIdEqualsSearchIdPredicate predicateContact = new ContactIdEqualsSearchIdPredicate(contactId);
+        NoteContainsTagsPredicate predicateNote = new NoteContainsTagsPredicate(getAssociatedTags(model));
 
         model.updateFilteredContactList(predicateContact);
         model.updateFilteredNoteList(predicateNote);
@@ -70,5 +63,14 @@ public class ShowContactCommand extends ContactCommand {
         return other == this // short circuit if same object
             || (other instanceof ShowContactCommand // instanceof handles nulls
             && contactId.equals(((ShowContactCommand) other).contactId)); // state check
+    }
+
+    private List<Tag> getAssociatedTags(Model model) {
+        List<Tag> associatedTags = new ArrayList<>();
+        associatedTags.add(new ContactTag(contactId));
+        associatedTags.addAll(model.findGroupsWithMember(new MemberId(contactId)).stream()
+            .map(group -> new GroupTag(group.getGroupName()))
+            .collect(Collectors.toList()));
+        return associatedTags;
     }
 }

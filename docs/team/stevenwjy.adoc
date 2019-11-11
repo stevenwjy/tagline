@@ -61,6 +61,11 @@ The following sections illustrate some more specific enhancements I have made to
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=contact-show]
+
+---
+
+include::../UserGuide.adoc[tag=tag-list]
 
 == Contributions to the Developer Guide
 
@@ -69,3 +74,7 @@ The following sections illustrate some more specific enhancements I have made to
 |===
 
 include::../DeveloperGuide.adoc[tag=contact-profile]
+
+---
+
+include::../DeveloperGuide.adoc[tag=tagstorage]
