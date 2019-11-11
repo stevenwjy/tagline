@@ -1,4 +1,4 @@
-= Tan Likai - Project Portfolio
+= Steven Wijaya - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -22,7 +22,7 @@ The following sections illustrate some more specific enhancements I have made to
 == Summary of contributions
 
 * *Major enhancement*: I added *autocomplete* for commands in TagLine.
-** What it does: 
+** What it does:
 ** Justification:
 ** Highlights:
 
