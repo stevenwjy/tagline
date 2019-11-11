@@ -22,10 +22,7 @@ By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 == Introduction
 
 TagLine is for those who prefer to use a desktop app for managing notes.
-More importantly, TagLine is optimized for those who prefer to work with a Command Line Interface (CLI)
-while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TagLine can
-streamline your note management much faster than traditional GUI apps. Interested? Jump to the Quick Start
-to get started. Enjoy!
+More importantly, TagLine is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TagLine can streamline your note management much faster than traditional GUI apps. Interested? This User Guide will provide all you need to know to use TagLine, jump to the Quick Start to get started. Enjoy!
 
 == Quick Start
 
@@ -821,7 +818,7 @@ Sort notes in different orders (i.e last updated date, alphabetically).
 === Manage your tags: `tag`
 
 // tag::tag-list[]
-==== Filter tags: `list`
+==== List tags: `list`
 
 Lists all valid tags that have ever been associated with your notes.
 A tag will appear in this list if it has been successfully used to tag a note previously.
@@ -843,3 +840,40 @@ You can just use the following command: `tag list`.
 .Command executed, list of tags displayed
 image::ug_taglist1.png[width="600"]
 // end::tag-list[]
+
+== Command summary
+
+*Contact*
+
+* *Create a contact:* `contact create --n NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+* *List all contacts:* `contact list`
+* *Display profile of a contact:* `contact show CONTACT_ID`
+* *Edit a contact:* `contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+* *Delete a contact:* `contact delete CONTACTID`
+* *Find contact by keyword:* `contact find KEYWORD`
+* *Clear all contacts:* `contact clear`
+
+*Group*
+
+* *Create a group:* `group create GROUP_NAME [--i CONTACT_ID]*`
+* *Remove a member from group:* `group remove GROUP_NAME [--i CONTACT_ID]+`
+* *Add a member to group:* `group add GROUP_NAME [--i CONTACT_ID]+`
+* *List all groups:* `group list`
+* *Find a group:* `group find GROUP_NAME`
+* *Delete a group:* `group delete GROUP_NAME​`
+
+*Note*
+
+* *Create a note:* `note create [--T TITLE] [--c CONTENT] [--t TAG]*`
+* *Delete a note:* `note delete NOTE_ID`
+* *Edit a note:* `note edit NOTE_ID [--T NEW_TITLE] [--c NEW_CONTENT]`
+* *Tag a note:* `note tag NOTE_ID [--t TAG]+`
+* *Untag a note:* `note untag NOTE_ID [--t TAG]+`
+* *List all notes:* `note list`
+* *Filter notes by keyword:* `note list [KEYWORD]+`
+* *Filter notes by tag:* `note list [TAG]+`
+* *Clear all notes:* `note clear`
+
+*Tag*
+
+* *List all tags:* `tag list`
