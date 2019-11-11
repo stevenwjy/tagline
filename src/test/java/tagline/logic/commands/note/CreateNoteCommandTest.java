@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -28,6 +29,8 @@ import tagline.model.contact.Contact;
 import tagline.model.contact.ContactId;
 import tagline.model.contact.ReadOnlyAddressBook;
 import tagline.model.group.Group;
+import tagline.model.group.GroupName;
+import tagline.model.group.MemberId;
 import tagline.model.group.ReadOnlyGroupBook;
 import tagline.model.note.Note;
 import tagline.model.note.NoteId;
@@ -399,22 +402,32 @@ class CreateNoteCommandTest {
         }
 
         @Override
-        public boolean hasGroup(Group note) {
+        public boolean hasGroup(Group group) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addGroup(Group note) {
+        public List<Group> findGroupsWithMember(MemberId memberId) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteGroup(Group target) {
+        public boolean hasGroupName(GroupName groupName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setGroup(Group target, Group editedGroup) {
+        public void addGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGroup(Group group, Group editedGroup) {
             throw new AssertionError("This method should not be called.");
         }
 
