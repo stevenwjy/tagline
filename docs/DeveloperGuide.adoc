@@ -1104,20 +1104,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
@@ -1168,6 +1154,24 @@ The autocomplete menu will only pop up *after* the user types in the command box
    *Expected*: TagLine will ask for the contact ID. +
    *Continuation*: Press the escape key. +
    *Expected*: A special message will be shown indicating that the command has been aborted.
+
+=== Deleting a contact
+
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `contact list` command. Multiple persons in the list.
+.. Test case: `contact delete 1` +
+   Expected: Contact with id 1 is deleted from the list. Details of the deleted contact shown in the status message.
+.. Test case: `contact delete 0` +
+   Expected: No contact is deleted. Error details shown in the status message.
+
+=== Showing a contact profile
+
+. Showing a contact profile that contains contact information and notes that are associated with the contact.
+.. Test case: `contact show 1` +
+   Expected: Showed the profile for contact with id 1.
+.. Test case: `contact show 0` +
+   Expected: No contact is showed. Error details shown in the status message.
 
 === Creating a group
 

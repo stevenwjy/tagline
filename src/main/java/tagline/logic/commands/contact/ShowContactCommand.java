@@ -34,6 +34,10 @@ public class ShowContactCommand extends ContactCommand {
         + "Parameters: CONTACT_ID (must be a positive integer)\n"
         + "Example: " + COMMAND_KEY + " " + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_SHOW_CONTACT_SUCCESS = "Showed Contact: %1$s";
+
+    public static final String MESSAGE_NON_EXISTING_ID = "Wrong contact ID.";
+
     private final ContactId contactId;
 
     public ShowContactCommand(ContactId contactId) {
