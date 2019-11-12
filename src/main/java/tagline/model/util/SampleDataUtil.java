@@ -157,7 +157,7 @@ public class SampleDataUtil {
         // @formatter:off
         return new Group[]{
             new Group(new GroupName("cs2103t"), new GroupDescription(""),
-                    getMemberIdSet("90035", "90036", "90037", "90038", "90041")),
+                    getMemberIdSet("00001", "00002", "00003", "00004", "00005")),
             new Group(new GroupName("X1"), new GroupDescription(""),
                     getMemberIdSet("90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038",
                     "90039", "90040", "90041")),
@@ -173,6 +173,15 @@ public class SampleDataUtil {
             new Group(new GroupName("exo"), new GroupDescription(""),
                     getMemberIdSet("6231", "5213", "4213", "3213", "5335", "6136",
                         "7", "8", "9")),
+            new Group(new GroupName("Flash"), new GroupDescription(""),
+                   getMemberIdSet("90031", "90032", "90033", "90034", "90035", "90036", "90037", "90038",
+                           "90039", "90040", "90041")),
+            new Group(new GroupName("UI"), new GroupDescription(""),
+                    getMemberIdSet("99999")),
+            new Group(new GroupName("ARMY"), new GroupDescription(""),
+                    getMemberIdSet("1", "3", "6")),
+            new Group(new GroupName("Wattpad"), new GroupDescription(""),
+                    getMemberIdSet("2", "4", "5")),
             new Group(new GroupName("Seventeen"), new GroupDescription(""),
                     getMemberIdSet("901", "902", "903", "904", "905", "906", "907", "908",
                             "909", "9010", "9011", "9012", "9013"))
@@ -200,7 +209,7 @@ public class SampleDataUtil {
         return Stream.of(
                 getHashTagSet("hello", "homework", "game", "songs", "assignment"),
                 getContactTagSet("1", "2", "3", "4", "5"),
-                getGroupTagSet("cs2103t"))
+                getGroupTagSet("cs2103t", "X1", "BTS", "Wanna-One", "iKon"))
                 .flatMap(Stream::of)
                 .toArray(Tag[]::new);
     }

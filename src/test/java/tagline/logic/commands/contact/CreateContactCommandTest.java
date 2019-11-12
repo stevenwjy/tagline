@@ -260,6 +260,11 @@ public class CreateContactCommandTest {
         }
 
         @Override
+        public void refreshFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasGroup(Group group) {
             throw new AssertionError("This method should not be called.");
         }
@@ -379,7 +384,7 @@ public class CreateContactCommandTest {
         @Override
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return this.contact.isSameContact(contact);
+            return this.contact.equals(contact);
         }
     }
 
@@ -392,7 +397,7 @@ public class CreateContactCommandTest {
         @Override
         public boolean hasContact(Contact contact) {
             requireNonNull(contact);
-            return contactsAdded.stream().anyMatch(contact::isSameContact);
+            return contactsAdded.stream().anyMatch(contact::equals);
         }
 
         @Override

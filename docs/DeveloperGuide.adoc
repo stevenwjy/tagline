@@ -80,7 +80,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="500"]
 
 *API* : link:{repoURL}/src/main/java/tagline/ui/Ui.java[`Ui.java`]
 
@@ -89,12 +89,12 @@ The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBa
 *  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback. To handle auto-completion, `CommandBox` uses an `AutoCompleteNode` to provide suggestions. The class diagram for the sub-component is shown below.
 
 .Structure of the Chat Pane sub-component
-image::UiChatPaneClassDiagram.png[]
+image::UiChatPaneClassDiagram.png[width="500"]
 
 *  The `ResultPane` displays a relevant `ResultView` based on the command entered. The following class diagram shows a partial view of the component with only the `NoteListResultView` and `ContactListResultView`.
 
 .Structure of the Result Pane sub-component
-image::UiResultPaneClassDiagram.png[]
+image::UiResultPaneClassDiagram.png[width="500"]
 
 Most of  these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
@@ -125,6 +125,7 @@ link:{repoURL}/src/main/java/tagline/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
+// tag::contact-logic[]
 ==== Contact Logic component
 .Class diagram of the Contact Logic Component
 image::ContactLogicClassDiagram.png[]
@@ -144,6 +145,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `contact create --n Bob` Command
 image::ContactCreateSequenceDiagram.png[]
+// end::contact-logic[]
 
 [[Design-NoteLogic]]
 ==== Note Logic component
@@ -291,6 +293,21 @@ The `GroupStorage` component,
 * can save `Group` objects in json format and read it back.
 * can save the Group Book data in json format and read it back.
 
+// tag::tagstorage[]
+[[Design-TagStorage]]
+==== Tag Storage component
+
+.Class diagram of the Tag Storage Component
+image::TagStorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/tagline/storage/tag/TagBookStorage.java[`TagBookStorage.java`]
+
+The `TagStorage` component,
+
+* can save `Tag` objects in json format and read it back.
+* can save the Tag Book data in json format and read it back.
+// end::tagstorage[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -300,7 +317,7 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::userprompting[]
+// tag::userprompting1[]
 === User Prompting
 
 ==== Description
@@ -337,10 +354,12 @@ Step 3: The `Ui` passes the original command, together with the processed `Promp
 
 image::UserPromptSequenceDiagramStep3.png[width=600]
 
+//end::userprompting1[]
 The full sequence diagram is shown below:
 
 image::UserPromptSequenceDiagramFull.png[width=600]
 
+//tag::userprompting2[]
 The user can also abort the command by pressing the Escape button. In this case, the `Ui` will discard the original command and continue to receive further user commands.
 
 ===== Getting responses from the user
@@ -409,30 +428,52 @@ image::UserPromptActivityDiagram.png[]
 
 For Alternative 1 and 2, implementing confirmation would inadvertently add an alternative command to directly perform the action. To illustrate, suppose we check for confirmation for the `contact clear` command by having the user type `YES`. Then due to the mechanism of the prompting feature, we will inadvertently include a new command like `contact clear <prefix> YES`. Since this is unintuitive, alternative 3 was chosen instead.
 
-// end::userprompting[]
+// end::userprompting2[]
 
-=== [Proposed] Group Contacts feature
-==== Proposed Implementation
+// tag::groupcontacts[]
+[[Group-Contacts-Feature]]
+=== Group Contacts feature
+
+==== Description
+
+Groups allows users to better organize contacts into relevant social circles (represented as `Group`)
+to better express relationships much like how they exists as in real life. This feature
+would provide the foundation for further more advanced features such as tagging of notes with
+group tags.
+
+The user can work with groups by using the commands as detailed in the <<UserGuide#manage-groups-code-group-code, `group`>> section.
+
+Commands currently available:
+
+* `group create` - creates a new group
+* `group remove` - removes a contact from a group
+* `group add` - adds an existing contact to the group
+* `group list` - list all available groups
+* `group find` - searches for group by exact name and displays contacts in the group
+* `group delete` - disbands a group (contacts in group are not deleted)
+
+==== Implementation
 
 The grouping feature is facilitated by `GroupBook`, an additional Model component in addition to the current `AddressBook`.
 It extends the functionality of `AddressBook` by providing a way to group contacts together into unique `Group` classes
 identified by their `GroupName`. This allows users to form more natural associations of
 contacts such as "BTS-members". Identifying which contacts are group members of a `Group` is done by
 storing a record of their `ContactId` in the `Group`.
-Additionally, `GroupManager` extends Tagline with the following operations:
+Additionally, `GroupManager` extends Tagline with the following operations to support
+commands dealing with groups:
 
-* `GroupManager#getGroupBook()` -- Retrieves a view only version of the groups for storing data after app quits.
-* `GroupManager#deleteGroup()` -- Deletes a group from the list of groups currently available.
-* `GroupManager#addGroup()` -- Adds a group to the list of groups currently available.
-* `GroupManager#setGroup()` -- Replaces a group in the list of groups with another group.
-* `GroupManager#getFilteredGroupList()` -- Returns a view only list of groups containing a subset of available Groups.
-* `GroupManager#updateFilteredGroupList()` -- Specifies which groups will be retrieved by `GroupManager#getFilteredGroupList()`.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#getGroupBook()`] -- Retrieves a view only version of the groups for storing data after app quits.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#deleteGroup()`] -- Deletes a group from the list of groups currently available.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#addGroup()`] -- Adds a group to the list of groups currently available.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#setGroup()`] -- Replaces a group in the list of groups with another group.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#getFilteredGroupList()`] -- Returns a view only list of groups containing a subset of available Groups.
+* link:{repoURL}/src/main/java/tagline/model/group/GroupManager.java[`GroupManager#updateFilteredGroupList()`] -- Specifies which groups will be retrieved by `GroupManager#getFilteredGroupList()`.
 
 The above operations are exposed in the `Model` interface by their respective method names.
 
-* `GroupCommand#findOneGroup()` -- Retrieves one Group with name matching the exact provided String.
-* `GroupCommand#verifyMemberIdWithModel()` -- Compares members currently in a group with contacts in `AddressBook` and returns only those found in `AddressBook`.
-* `GroupCommand#setDifference()` -- Used to get contactids specified which do not exist in `AddressBook`.
+* link:{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java[`GroupCommand#findOneGroup()`] -- Retrieves one Group with name matching the exact provided String.
+* link:{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java[`GroupCommand#verifyMemberIdWithModel()`] -- Compares members currently in a group with contacts in `AddressBook` and returns only those found in `AddressBook`.
+* link:{repoURL}/src/main/java/tagline/logic/commands/group/GroupCommand.java[`GroupCommand#setDifference()`] -- Used to get contactids specified which do not exist in `AddressBook`.
 
 These above are static utility functions which form the underlying structure of how a `GroupCommand` works.
 
@@ -479,17 +520,20 @@ image::GroupContactsState2.png[]
 
 Step 4. The user realizes she has made a mistake adding a wrong contact and in a fit of rage
  chooses to delete the contact instead of merely removing the contact from the Group.
- Executing `contact delete --i 00013`
+ Executing `contact delete 00013`
  which then deletes the `Contact` with contactId of 00013.
  However, this does not remove the contact's id from
  the memberId attribute in the `Group` the contact was in. This step does not involve `GroupModel` in any way. +
 
-.State after contact with contactId = 00013 is deleted
+.State after contact with contactId = 00013 is deleted, UI for groups is not active at this point
 image::GroupContactsState3.png[]
 
 Deleting a `Contact` would cause it to be removed from `AddressBook` model state and the `Contact`
- no longer exists. While the `UI` display no longer shows contact of 00013, it is still recorded as a member in
- `GroupBook` model state. The updating of `GroupBook` model state is deferred.
+ no longer exists. Due to the `contact` command, the active UI shifts to displaying a list
+of contacts (not illustrated here for simplicity) and the groups as shown in the image
+are actually not visible to the user. However behind the scenes, while
+the `UI` no longer has contact of 00013, it is still recorded as a member
+in `GroupBook` model state. The updating of `GroupBook` model state is deferred.
 
 
 Step 5. The user then executes `group add BTS --i 00003` to add the correct contact as a member on the `Group`
@@ -497,11 +541,12 @@ Step 5. The user then executes `group add BTS --i 00003` to add the correct cont
  This calls `AddMemberToGroupCommand` which then updates the `Group` ensuring that all memberIds correspond to an existing
  `ContactId` found in `AddressBook`. The contacts of the group are also displayed to the user.  +
 
-.State after user views contacts of Group "BTS"
+.State after user views contacts of Group "BTS", UI displaying the group of contacts is now visible
 image::GroupContactsState4.png[]
 
 Here, the `GroupBook` model state is updated and memberId of 00013 from the previous step is removed while `Contact`
- with contactId of 00003 is added into the `Group`. This change is also reflected in the `UI`.
+ with contactId of 00003 is added into the `Group`. This change is also reflected in the `UI`
+which changes back to group display now that a group command is issued.
 Now all is as it should be in `Group` "BTS". +
 
 
@@ -527,15 +572,16 @@ image::GroupSequenceDiagram.png[]
 ** Cons: Deciding when to check if members are still part of a `Group` since it need not be done at loading time.
  While it is more flexible, can be a potential source of confusion as it may be possible to forget to update
  the members in `Group`.
-
 // end::groupcontacts[]
 
-=== [Proposed] Tagging feature
+// tag::yehez1[]
+
+=== Tagging feature
 ==== Description
 
 The user can tag a note with many tags by using <<UserGuide#note-tag, `note tag`>> command.
 
-==== Proposed Implementation
+==== Implementation
 
 In order to add tagging feature we will need to take a look at two processes, which are the tag command creation and the
  execution of the command.
@@ -548,11 +594,12 @@ Given below is an example scenario when a user tag a note with 2 tags.
 
 **Step 1:** The user command will be passed to `TaglineParser`, all the way to the `TagNoteParser`.
 
-image::CreatingTagNoteCommand.png[]
+image::CreatingTagNoteCommand.png[width=600]
 
 **Step 2:** `NoteParserUtil` will be used to create a `noteId` object.
 
-**Step 3:** Finally, `TagParserUtil` will be used to create `tag` objects. All of them will be aggregated inside a `tagList`.
+**Step 3:** Finally, `TagParserUtil` will be used to create `tag` objects. All of them will be aggregated inside a
+`tagList` before being passed to the `TagNoteCommand` Constructor.
 
 This whole process has created a `TagNoteCommand` object from user input.
 
@@ -562,16 +609,18 @@ Now, we will take a look on how we are executing the tagging command.
 
 Given below is an example scenario when the tagging command gets executed.
 
-**Step 1:** The `TagNoteCommand` will first exchange each tag with a tagId through model. Internally, model will have to
-interact with TagManager which will find the tag or create it if it does not exist.
+**Step 1:** The `TagNoteCommand` interact with `NoteManager` through `model` to find the note to be tagged.
 
-image::ExecutingTagNoteCommand.png[]
+image::ExecutingTagNoteCommand.png[width=600]
 
-**Step 2:** The `TagNoteCommand` then interact with `NoteManager` in order to find the corresponding note.
+**Step 2:** The `TagNoteCommand` then exchange each tag with another tag which is registered inside the model.
+Internally, model will have to interact with `TagManager` which will find the registered tag or register one if it does
+not exist inside model.
 
-**Step 3:** Finally, each `tagId` will be added to note through `NoteManager`.
+**Step 3:** Finally, the note will be tagged with the registered tag using model.
 
-This whole process has executed the `TagNoteCommand`.
+This whole process has successfully executed the `TagNoteCommand`.
+// end::yehez1[]
 
 // tag::note-filter[]
 === Note filtering feature
@@ -648,6 +697,118 @@ If all tags exist, the tags will be passed into the `NoteContainsTagsPredicate` 
 
 image::FilterTagExample.png[width=700]
 // end::note-filter[]
+
+// tag::contact-profile[]
+=== Contact Profile feature
+==== Description
+
+The user can view all notes that are associated with a certain contact with <<UserGuide#contact-profile, contact profile>> feature.
+A note is considered to be associated with a contact X if it satisfies one of the following criteria:
+
+- The note is tagged with a contact tag that represents X.
+- The note is tagged with a group tag where the represented group has X as one of its members.
+
+This feature takes advantage of the existing `note tag` command by having these two types of tags:
+
+- Contact tag:
+  * Use `@` symbol as the tag prefix.
+  * Represents a contact using its id.
+  * Usage example: `@12345`. This represents a contact with id `12345`.
+- Group tag:
+  * Use `%` symbol as the tag prefix.
+  * Represents a group using its name.
+  * Usage example: `%cs2103t`. This represents a group with name `cs2103t`.
+
+The user can use `contact show` command to display the profile of a contact.
+A contact profile contains all the stored information (e.g. email and address) and notes that are associated with that contact.
+
+==== Implementation
+
+The tags that represent contact and group are facilitated by the
+link:{repoURL}/src/main/java/tagline/model/tag/ContactTag.java[`ContactTag`] and
+link:{repoURL}/src/main/java/tagline/model/tag/GroupTag.java[`GroupTag`] classes.
+
+Whenever a user uses `note tag` command to tag a note with any type of tag, part of the input that
+represents the value of tag (i.e. follows `--t TAG` format) will be passed into
+link:{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java[`TagParserUtil`]. The parser will
+handle the translation based on the first non-whitespace character into a
+link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag`] object, which is possible to be either
+`ContactTag` or `GroupTag`.
+
+Meanwhile, the mechanism to display a contact profile is facilitated by the
+link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`] class.
+This command takes a contact id as parameter and stores it inside the object. Upon execution,
+the command will ask link:{repoURL}/src/main/java/tagline/model/Model.java[`Model`] for all groups that
+contain the given contact as one of their members. Afterward, it will filter notes based on contact id and
+all the group names that are converted into `Tag` objects.
+
+===== Parsing for contact and group tags
+
+Parsing for contact and group tags are handled by
+link:{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java[`TagParserUtil`] as described
+in the tagging feature section. Differences between input format with other type of tag (i.e. hash tag) is only the
+first character where contact tag uses `@` symbol and group tag uses `%` symbol.
+
+However, the main difference is in the implementation of
+link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag#isValidInModel`], which is an abstract method that needs
+to be implemented by every concrete subclass of link:{repoURL}/src/main/java/tagline/model/tag/Tag.java[`Tag`].
+The following are how this method is implemented in contact and note tags:
+
+* Contact tag determines its validity in the model by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findContact`], which takes a
+link:{repoURL}/src/main/java/tagline/model/contact/ContactId.java[`ContactId`] as parameter and
+returns an optional object of link:{repoURL}/src/main/java/tagline/model/contact/Contact.java[`Contact`]
+that has the specified contact id. If such contact object exists, a contact tag is considered valid.
+
+* Group tag determines its validity in the model by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#hasGroupName`], which takes a
+link:{repoURL}/src/main/java/tagline/model/group/GroupName.java[`GroupName`] as parameter and
+returns a boolean whether such group name exists in the data stored by Tagline or not.
+
+===== Creating the command
+
+Given below is an example scenario where the user enters a command to show a contact profile.
+
+**Step 1:** Similar to other contact commands, the user command is first passed to `TaglineParser` to identify its type
+until it finally arrives at `ShowContactParser` which will create the command object. The `ShowContactParser` also checks
+the input arguments to make sure it follows the basic format.
+
+.Sequence diagram of parsing user input string to obtain a `ShowContactCommand`
+image::ContactShowParserDiagram.png[width=700]
+
+===== Executing the command
+
+When executing of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`],
+there will be an initial check whether the provided contact id is valid or not by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findContact`] similar with checking validity for contact tag.
+If the provided contact id is invalid (e.g. non existing contact), the execution will stop and directly return a
+link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] which informs about the error.
+
+Suppose now we only consider the `contact show` command that is provided with valid contact id. During execution, it will
+translate the contact id into
+link:{repoURL}/src/main/java/tagline/model/contact/ContactIdEqualsSearchIdPredicate.java[`ContactIdEqualsSearchIdPredicate`] and
+link:{repoURL}/src/main/java/tagline/model/note/NoteContainsTagsPredicate.java[`NoteContainsTagsPredicate`] objects.
+Afterwards, those predicate will be used to update the observable contact and note list, by calling
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredContactList`] and
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#updateFilteredNoteList`].
+
+.Sequence diagram of executing `contact show` command.
+image::ContactShowExecutionDiagram.png[width=700]
+
+During translation from contact id to multiple tags, the command objects will call
+link:{repoURL}/src/main/java/tagline/model/Model.java[`Model#findGroupsWithMember`] to get all groups that contain
+the specified contact id as one of its members. Afterwards, it creates a single array of tags that represent all tags
+that are associated with the contact id.
+
+.Sequence diagram of translation from contact id into associated tags.
+image::RetrieveAssociatedTagsDiagram.png[width=700]
+
+A successful execution of link:{repoURL}/src/main/java/tagline/logic/commands/contact/ShowContactCommand.java[`ShowContactCommand`]
+will return a link:{repoURL}/src/main/java/tagline/logic/commands/CommandResult.java[`CommandResult`] that indicates
+a view change into link:{repoURL}/src/main/java/tagline/ui/contact/ContactProfileResultView.java[`ContactProfileResultView`].
+The result view for contact profile observes the changes on observable contact and note lists to update accordingly.
+
+// end::contact-profile[]
 
 === Logging
 
@@ -906,24 +1067,6 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -932,40 +1075,279 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Autocomplete
 
-. Initial launch
+. Looking at autocomplete options
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. *Test case*: Type a valid partial command, e.g. `c`, `co` or `contact del`. +
+   *Expected*: The autocomplete popup will suggest the next word. So `contact` will be suggested for `c` and `co`, and `contact delete` will be suggested for `contact del`.
+.. *Test case*: Type an invalid partial command, e.g. `d` or `contact qqq` +
+   *Expected*: The autocomplete popup disappears.
+.. *Test case*: Use the arrow keys to navigate down to an option in the autocomplete popup. Press Enter or use the mouse to select it. +
+   *Expected*: The command box displays the auto-completed string.
 
-. Saving window preferences
+=====
+*Note*
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+The autocomplete menu will only pop up *after* the user types in the command box. It will disappear after clicking elsewhere on the screen or selecting an autocomplete option.
+=====
 
-_{ more test cases ... }_
+=== Prompting
 
-=== Deleting a person
+. Requesting additional information from the user
 
-. Deleting a person while all persons are listed
+.. *Test case*: `contact create` +
+   *Expected*: The chat pane will show two dialogs from TagLine. The first dialog will indicate that the user is being prompted, and the second will ask for the contact name. +
+   *Continuation*: `Bob` +
+   *Expected*: A contact named 'Bob' will be created.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. *Test case*: `note tag` +
+   *Expected*: The chat pane will show two dialogs from TagLine. The first dialog will indicate that the user is being prompted, and the second will ask for the note ID. +
+   *Continuation*: `1` (or any valid note ID) +
+   *Expected*: The chat pane will display another dialog from TagLine, asking for a tag. +
+   *Continuation*: `#TEST` (or any valid tag) +
+   *Expected*: The note with ID 1 will be tagged with the tag `#TEST`.
 
-_{ more test cases ... }_
+.. *Test case*: `contact delete` +
+   *Expected*: TagLine will ask for the contact ID. +
+   *Continuation*: Enter any invalid ID. +
+   *Expected*: An error message will be shown.
 
-=== Saving data
+.. *Test case*: `contact delete` +
+   *Expected*: TagLine will ask for the contact ID. +
+   *Continuation*: Press the escape key. +
+   *Expected*: A special message will be shown indicating that the command has been aborted.
 
-. Dealing with missing/corrupted data files
+=== Creating a note
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Creating a new note
+.. *Test case:* `note create --T TagLine Testing` +
+    *Expected:* Message on successful creation of note displayed with details of the note. The note created appears in the list of notes in the list pane on the right.
+.. *Test case:* `note create --c This is a creation of a note` +
+    Expected: Similar to previous.
+.. *Test case:* `note create --T TagLine Testing --c This is a creation of a note` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note create --T TagLine Testing --c This is a creation of a note --t #testing` +
+    *Expected:* Similar to previous. The note created shown in the note list reflects the tag "#testing".
 
-_{ more test cases ... }_
+.. *Test case:* `note create` +
+    *Expected:* No note is created. A message asking for the note content is displayed. +
+... *Subsequent action:* Enter `This is a creation of a note`.
+*Expected:* Message on successful creation of note displayed with details of the note. The note created appears in the list of notes in the list pane on the right.
+
+.. *Test case:* `note create` +
+    *Expected:* No note is created. A message asking for the note content is displayed. +
+... *Subsequent action:* Press enter without any text.
+Expected: No note is created. An error message is returned with the error details. Command is highlighted red in the command box.
+
+.. *Test case:* `note create --T This is a title of too many characters, more than 50` +
+    *Expected:* No note is created. An error message is returned with the error details. Command is highlighted red in the command box.
+
+=== Deleting a note
+
+. Deleting a note
+
+.. *Test case:* `note delete 1` +
+    *Expected:* Note with the id of "1" is deleted from the note list. A message indicating successful note deletion is displayed with the details of deleted note. +
+    **_An assigned note id is static, deleted note id are not reassigned._*
+.. *Test case:* `note delete 1` (Ensure note with ID '1' is has been removed) +
+    *Expected:* No note is deleted. An error message is displayed with the error details. Command is highlighted red in the command box.
+.. *Test case:* `note delete a` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note delete X` (Where X is an is a number not used as a note id i.e -1) +
+    *Expected:* Similar to previous.
+
+=== Editing a note
+. Editing the sample note with id 2 upon launch
+.. *Prerequisite:* Ensure the sample notes appear in the application and note #2 is an untitled note.
+
+.. *Test case:* `note edit` +
+    *Expected:* No note is edited. An error message is displayed with the error details. Command is highlighted red in the command box.
+.. *Test case:* `note edit 2` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note edit 2 --c ````` (With a space after '--c' as the prefix is '--c ') +
+    *Expected:* Similar to previous.
+.. *Test case:* `note edit 2 --c Team Meeting - Wed 4pm` +
+    *Expected:* Message on successful edit of note displayed with details of the note. The note edited is reflected in the list of notes in the list pane on the right.
+.. *Test case:* `note edit 2 --T CS2103T Meeting` +
+    *Expected:* Similar to previous.
+
+=== Listing and filtering notes
+
+. Listing all notes
+.. *Prerequisite:* Change list pane to list other information. E.g. `contact list`
+.. *Test case:* `note list` +
+    *Expected:* Message on successful listing is displayed. All notes are listed in the list pane on the right pane.
+
+. Filtering notes by keywords in content
+.. *Test case:* `note list cs` +
+    *Expected:* Message on successful listing is displayed. Notes containing keyword are listed in the list pane on the right pane.
+.. *Test case:* `note list team bug` +
+    *Expected:*  Message on successful listing is displayed. Notes containing any of the keywords are listed in the list pane on the right pane.
+.. *Test case:* `note list notfound` +
+    *Expected:* No notes are listed. Message is displayed stating that no notes matching keyword is found.
+
+. Filtering notes by tag
+.. *Prerequisite:* Ensure the sample tags are in the application with `tag list`
+
+.. *Test case:* `note list #songs` +
+    *Expected:* Message on successful listing is displayed. Notes tagged by specified tag are listed in the list pane on the right pane.
+.. *Test case:* `note list @1` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note list %cs2103t` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note list @1 %cs2103t` +
+    *Expected:* Similar to previous. Notes tagged by any of the tags specified are listed in the list pane on the right pane.
+.. *Test case:* `note list #notfound` +
+    *Expected:* No notes are listed. Message is displayed stating that tag cannot be found.
+.. *Test case:* `note list #songs #notfound` +
+    *Expected:* Similar to previous.
+
+=== Creating a group
+
+. Creating a group with no members with all groups listed
+.. *Prerequisites*: List all groups using the `group list` command. Multiple groups in the list. Must have Contact of ID 1 in Addressbook (the display showing all available contacts, use `contact list`), cannot have Contact of ID 0 in Addressbook. Be sure to delete group _ao3_ before the start of every test case with `group delete ao3`.
+.. *Test case*: `group create ao3` +
+   *Expected*: Group _ao3_ is created with no members. Status message indicates "New group successfully added".
+.. *Test case*: `group create ao3 --i 1` +
+   *Expected*: Group _ao3_ is created with with ContactID of 1 listed in the group. Status message indicates "New group successfully added.".
+.. *Test case*: `group create ao3 --i 0 --i 1` +
+   *Expected*: Group _ao3_ is created with with ContactID of 1 listed in the group. Status message indicates "New group successfully added. The following members were not found [00000]".
+.. *Test case*: `group create ao3 --i holland` +
+   *Expected*: Group _ao3_ is not created. Status message indicates "MemberIds should be numeric and only up to 5 characters long".
+.. *Test case*: `group create archive of our own` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== Adding members to a group
+
+. Adding members to a group with the group currently being displayed
+.. *Prerequisites*: Display contacts in group _BTS_ with `group find BTS`, if not found create with the group. Must have Contact of ID 1 in Addressbook (the display showing all available contacts, use `contact list`), cannot have Contact of ID 0 in Addressbook. Group _BTS_ should not contain members with Contact of ID 1 or 0.
+.. *Test case*: `group add BTS --i 1` +
+   *Expected*: Group _BTS_ is displayed with members including Contact with ContactID of 1. Status message indicates "Attempting to add contact(s) to group".
+.. *Test case*: `group add BTS --i 1` +
+   *Note*: The purpose of this test is cummulative with the previous to add a contact to a group that already exists in the group +
+   *Expected*: Group _BTS_ is displayed with members including Contact with ContactID of 1. Status message indicates "Attempting to add contact(s) to group".
+.. *Test case*: `group add BTS --i 0` +
+   *Expected*: Group _BTS_ is unchanged. Status message indicates "Attempting to add contact(s) to group. The following members were not found [00000]".
+.. *Test case*: `group add BTS --i holland` +
+   *Expected*: Group _BTS_ is unchanged. Status message indicates "MemberIds should be numeric and only up to 5 characters long".
+.. *Test case*: `group add archive of our own --i 1` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== Removing members from a group
+
+. Removing members from a group with the group currently being displayed
+.. *Prerequisites*: Display contacts in group _BTS_ with `group find BTS`, if not found create with the group. Must have Contact of ID 1 in the group (if not there add it in using `group add BTS --i 1`), cannot have Contact of ID 0 in the group.
+.. *Test case*: `group remove BTS --i 1` +
+   *Expected: Group _BTS_ is displayed with members excluding Contact with ContactID of 1. Status message indicates "Attempting to remove contact(s) from group.".
+.. *Test case*: `group remove BTS --i 0` +
+   *Expected: Group _BTS_ is unchanged. Status message indicates "Attempting to remove contact(s) from group. The following members were not found [00000]".
+.. *Test case*: `group remove BTS --i holland` +
+   *Expected*: Group _BTS_ is unchanged. Status message indicates "MemberIds should be numeric and only up to 5 characters long".
+.. *Test case*: `group remove bangtan sonyeondan --i 1` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== List all available groups
+
+. List all groups.
+.. *Prerequisites*: Must contain at least one Group
+.. *Test case*: `group list` +
+   *Expected*: All groups are listed. Status message indicates "Success! Listing groups found."
+
+=== Find a specific group
+
+. Display all members in a group with group currently not being dislayed.
+.. *Prerequisites*: Group _BTS_ must exist in the list of group, check with `group list`, if not found create with the group. Group _fanficdotnet_ does not exist in list of groups. Ensure that group is currently not being displayed using `contact list` before every test case.
+.. *Test case*: `group find BTS` +
+   *Expected: Group _BTS_ is displayed with members. Status message indicates "Success! Di*splaying the group".
+.. *Test case*: `group find fanficdotnet` +
+   Expected: UI is unchanged. Status message indicates "The group name provided could not be found.".
+.. *Test case*: `group find archive of our own` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== Deleting a group
+
+. Deleting a group while viewing members in the group
+.. *Prerequisites*: View group _ao3_ (which must already exist otherwise create it) with `group find ao3`, group _ao3_ must have Contact of ContactID 1 in it and exist in Addressbook (check with `contact list`).
+.. *Test case*: `group delete ao3` +
+   *Expected*: Group _ao3_ is deleted and all groups remaining groups (if any) are being displayed, contact of contactID 1 still exists in Addressbook. Status message indicates "Success! now showing all groups.".
+.. *Test case*: `group delete archive of our own` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+// tag::yehez2[]
+=== Tagging a note
+
+. *Prerequisites*: Enter `note list` command to view all notes. Ensure that note with id `1` exists. Otherwise,
+take any other note or create one and replace all id `1` with the chosen note's id in each of the following test cases.
+
+. Tagging a note with hash tag.
+.. *Prerequisites*: Note with id `1` is not tagged with `#any topic`, `#topic1`, `#topic2`, and `#topic3`.
+.. *Test case*: `note tag 1 --t #any topic` +
+   *Expected*: Note successfully tagged with `#any topic` which should be reflected in the response message and in
+the note view.
+.. *Test case*: Enter `note tag 1 --t #any topic` twice +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the same command, we would get an error message saying that the tag has been tagged
+to the note.
+.. *Test case*: `note tag 1 --t #topic1 --t #topic2 --t #topic3` +
+   *Expected*: Note successfully tagged with the three hash tag which should be reflected in the response message and in
+the note view.
+.. *Test case*: Enter `note tag 1 --t #topic1 --t #topic2` then enter `note tag 1 --t #topic1 --t #topic3` +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the next command, we would get an error message saying that there are tags which have
+been tagged to the note. In this case, it is `#topic1`
+.. *Test case*: Enter `note tag 1 --t #0123456789012345678901234567890` +
+   *Expected*: We will get an error message saying that the maximum character for hash tag is 30.
+// end::yehez2[]
+
+. Tagging a note with contact tag
+
+. Tagging a note with group tag
+
+// tag::yehez3[]
+
+. Tagging a note with all types of tag
+.. *Prerequisites*: There is a contact with id `1`, otherwise you may choose any other existing contact id. There is a
+group with name `BTS`, otherwise you may create one. Note
+with id `1` is not tagged with `#topic`, `@00001` and `%BTS`.
+.. *Test case*: `note tag 1 --t #topic --t @00001 --t %BTS` +
+   *Expected*: Note successfully tagged with the three hash tag which should be reflected in the response message and in
+the note view.
+
+=== Untagging a note
+
+. *Prerequisites*: Enter `note list` command to view all notes. Ensure that note with id `1` exists. Otherwise,
+take any other note or create one and replace all id `1` with the chosen note's id in each of the following test cases.
+. Untagging a note with hash tag.
+.. *Prerequisites*: Note with id `1` is tagged with `#any topic`, `#topic1`, `#topic2`, and `#topic3`.
+.. *Test case*: `note untag 1 --t #any topic` +
+   *Expected*: Note successfully untagged with `#any topic` which should be reflected in the response message and in
+the note view.
+.. *Test case*: Enter `note untag 1 --t #any topic` twice +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the same command, we would get an error message saying that the tag is not tagged
+to the note.
+.. *Test case*: `note untag 1 --t #topic1 --t #topic2 --t #topic3` +
+   *Expected*: Note successfully untagged with the three hash tag which should be reflected in the response message
+and in the note view.
+.. *Test case*: Enter `note untag 1 --t #topic1 --t #topic2` then enter `note tag 1 --t #topic1 --t #topic3` +
+   *Expected*: The first time we enter the command, it should succeed normally as described in the previous test case
+whereas the second time we enter the next command, we would get an error message saying that there are tags which are
+not tagged to the note. In this case, it is `#topic1`
+.. *Test case*: Enter `note untag 1 --t #0123456789012345678901234567890` +
+   *Expected*: We will get an error message saying that the maximum character for hash tag is 30.
+// end::yehez3[]
+
+. Untagging a note with contact tag
+
+. Untagging a note with group tag
+
+// tag::yehez4[]
+. Untagging a note with all types of tag
+.. *Prerequisites*: There is a contact with id `1`, otherwise you may choose any other existing contact id. There is a
+group with name `BTS`, otherwise you may create one. Note
+with id `1` is tagged with `#topic`, `@00001` and `%BTS`.
+.. *Test case*: `note untag 1 --t #topic --t @00001 --t %BTS` +
+   *Expected*: Note successfully untagged with the three hash tag which should be reflected in the response message
+and in the note view.
+// end::yehez4[]

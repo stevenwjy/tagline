@@ -1,3 +1,5 @@
+// @@author yehezkiel01
+
 package tagline.model.contact;
 
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
@@ -72,20 +74,6 @@ public class Contact {
 
     void setContactId(ContactId contactId) {
         this.contactId = contactId;
-    }
-
-    /**
-     * Returns true if both contacts of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two contacts.
-     */
-    public boolean isSameContact(Contact otherContact) {
-        if (otherContact == this) {
-            return true;
-        }
-
-        return otherContact != null
-                && otherContact.getName().equals(getName())
-                && (otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail()));
     }
 
     /**
